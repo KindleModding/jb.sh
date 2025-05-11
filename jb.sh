@@ -54,16 +54,16 @@ make_immutable() {
 ###
 # Actual JB from here
 ###
-wb_log "**** WinterBreak JAILBREAK ****"
+wb_log "************ JB.sh ************"
 wb_log "*    Created by HackerDude    *"
-wb_log "********************** 1.7.0 *"
+wb_log "********************** 2.0.0 *"
 wb_log ""
 wb_log "Like what you see? Donate to my Ko-Fi"
 wb_log "to help support these projects:"
 wb_log "https://ko-fi.com/hackerdude"
 wb_log ""
 wb_log "Thanks to Marek, Katadelos and NiLuJe for their help"
-wb_log "creating this jailbreak"
+wb_log "creating this script"
 wb_log ""
 wb_log "After all, all devices have their dangers."
 wb_log "The discovery of speech introduced communication - and lies."
@@ -111,15 +111,18 @@ install_touch_update_key_squash()
 # The real fun starts here
 mntroot rw
 
-# Check if OTA is disabled and if so enable it so hotfix can later be applied
-if [ -f "/usr/bin/otaupd.bck" ] ; then
-  mv /usr/bin/otaupd.bck /usr/bin/otaupd
-  wb_log "otaupd restored"
+# First we eradicate any partially downloaded update files (stops update mid-JB)
+rm -f /mnt/us/*.partial
+
+# Disable OTA if it isn't already
+if [ ! -f "/usr/bin/otaupd.bck" ] ; then
+  mv /usr/bin/otaupd /usr/bin/otaupd.bck
+  wb_log "otaupd renamed"
 fi
 
-if [ -f "/usr/bin/otav3.bck" ] ; then
-  mv /usr/bin/otav3.bck /usr/bin/otav3
-  wb_log "otav3 restored"
+if [ ! -f "/usr/bin/otav3.bck" ] ; then
+  mv /usr/bin/otav3 /usr/bin/otav3.bck
+  wb_log "otav3 renamed"
 fi
 
 # Install update key in folder
