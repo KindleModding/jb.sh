@@ -25,25 +25,6 @@ wb_log() {
 }
 
 ###
-# Prevents potential bootloop for people who didn't properly remove the beta (from when it was called MountSus)
-###
-if [ -f /var/local/root/mntus.params ]; then
-  if [ $(grep -i "/mnt/us/JB.sh" "/var/local/root/mntus.params") != "" ] ; then
-    wb_log "ERROR: MountSus Detected - exiting"
-    exit 0 # The jailbreak has already been run before
-  fi
-fi
-
-if [ -f /var/local/system/mntus.params ]; then
-  if [ $(grep -i "/mnt/us/JB.sh" "/var/local/system/mntus.params") != "" ] ; then # Just in case!
-      wb_log "ERROR: MountSus Detected - exiting"
-      exit 0 # The jailbreak has already been run before
-  fi
-fi
-
-
-
-###
 # Helper functions
 ###
 make_mutable() {
