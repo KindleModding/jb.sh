@@ -116,11 +116,13 @@ rm -f /mnt/us/*.partial
 
 # Disable OTA if it isn't already
 if [ ! -f "/usr/bin/otaupd.bck" ] ; then
+  killall otaupd
   mv /usr/bin/otaupd /usr/bin/otaupd.bck
   wb_log "otaupd renamed"
 fi
 
 if [ ! -f "/usr/bin/otav3.bck" ] ; then
+  killall otav3
   mv /usr/bin/otav3 /usr/bin/otav3.bck
   wb_log "otav3 renamed"
 fi
