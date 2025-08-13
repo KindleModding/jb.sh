@@ -28,7 +28,7 @@ rm -rf /var/local/mkk
 mkdir /var/local/mkk
 
 make_mutable "/var/local/kmc"
-cp -R /tmp/kmc/* /var/local/kmc
+cp -rf /tmp/kmc/* /var/local/kmc
 
 log "Setting KMC permissions"
 chmod -R a+rx /var/local/kmc/armel/*
@@ -69,3 +69,10 @@ chmod a+rx "/mnt/us/libkh/bin/fbink"
 
 # Not needed anymore
 rm -rf /tmp/kmc
+
+
+log "Setting up sh_integration"
+cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db
+
+log "Setting up persistence"
+cat /var/local/kmc/sql/appreg_register_persistence_runner.sql | sqlite3 /var/local/appreg.db
