@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ###
 # Define logging function
 ###
