@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ###
 # Fix permissions for KMC (MKK doesn't need this)
 ###
@@ -17,6 +19,7 @@ if [ "$(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)" -lt "$(($(df 
     log "not enough space left in varlocal"
     log "Needed: $(($(df -k /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))"
     log "Available: $(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)"
+    rm -rf /tmp/kmc
     return 1
 fi
 
@@ -63,3 +66,6 @@ cp -f "/var/local/mkk/${ARCH}/bin/fbink" "/mnt/us/libkh/bin/fbink" # Yeah we do 
 chmod a+rx "/mnt/us/libkh/bin/fbink"
 
 # Since the links to these binaries are SOFT links, no additional copying/linking is required
+
+# Not needed anymore
+rm -rf /tmp/kmc
