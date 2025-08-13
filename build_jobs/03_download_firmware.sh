@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo "Downloading firmware"
 if command -v aria2c >/dev/null 2>&1
 then

@@ -1,3 +1,4 @@
+#!/bin/sh
 
 echo "Building sh_integration"
 cd sh_integration

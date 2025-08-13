@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo "Extracting + mounting firmware"
 ${KINDLETOOL} extract cache/firmware.bin build/firmware > /dev/null 2>&1
 gunzip build/firmware/*rootfs*.img.gz
