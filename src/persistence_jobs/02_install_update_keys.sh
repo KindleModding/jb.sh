@@ -2,7 +2,7 @@
 
 install_touch_update_key()
 {
-	logmsg "I" "install_touch_update_key" "" "Copying the jailbreak updater key"
+	log "Copying the jailbreak updater key"
 	make_mutable "/etc/uks/pubdevkey01.pem"
 	rm -rf "/etc/uks/pubdevkey01.pem"
 	cat > "/etc/uks/pubdevkey01.pem" << EOF
@@ -24,7 +24,7 @@ EOF
 
 install_touch_update_key_squash()
 {
-	logmsg "I" "install_touch_update_key_squash" "" "Copying the jailbreak updater keystore"
+	log "Copying the jailbreak updater keystore"
 	make_mutable "/etc/uks.sqsh"
 	local my_loop="$(grep ' /etc/uks ' /proc/mounts | cut -f1 -d' ')"
     umount "${my_loop}"
