@@ -54,6 +54,7 @@ ln -sf "/var/local/kmc/bin/gandalf" "/var/local/mkk/gandalf"
 make_mutable /var/local/mkk
 ln -sf "/var/local/mkk/gandalf" "/var/local/mkk/su"
 make_immutable /var/local/mkk
+make_immutable /var/local/kmc
 
 log "Installing libkh"
 mkdir -p "/mnt/us/libkh/bin"
