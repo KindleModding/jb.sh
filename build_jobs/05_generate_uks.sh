@@ -23,4 +23,4 @@ eEgloIdm1E4LOsyrz4kttQtGRlzCErmBGt6+cAVEV86y2phOJ3mLk0Ek9UQXbIUf
 rvyJnS2MKLG2cczjlQIDAQAB
 -----END PUBLIC KEY-----
 EOF
-mksquashfs build/patched_uks build/kmc/updater_keys.sqsh > /dev/null
+mksquashfs build/patched_uks build/kmc/persistence/updater_keys.sqsh > /dev/null

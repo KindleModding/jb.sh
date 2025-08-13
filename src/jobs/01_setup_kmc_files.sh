@@ -59,10 +59,10 @@ ln -sf "/var/local/mkk/gandalf" "/var/local/mkk/su"
 make_immutable /var/local/mkk
 make_immutable /var/local/kmc
 
-log "Installing libkh"
+log "Installing libkh binaries"
 mkdir -p "/mnt/us/libkh/bin"
 rm -f /mnt/us/libkh/bin/fbink
-cp -f "/var/local/mkk/${ARCH}/bin/fbink" "/mnt/us/libkh/bin/fbink" # Yeah we do copying this itme it's weird I KNOW
+cp -f "/var/local/mkk/${ARCH}/bin/fbink" "/mnt/us/libkh/bin/fbink" # Yeah we do copying bc userstore is funky
 chmod a+rx "/mnt/us/libkh/bin/fbink"
 
 # Since the links to these binaries are SOFT links, no additional copying/linking is required
