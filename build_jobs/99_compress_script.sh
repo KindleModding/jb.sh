@@ -1,3 +1,5 @@
+#!/bin/sh
+
 script_compressed=$(cat build/jb.sh | xz -9 | base64 -w 0)
 
 echo "#!/bin/sh" > build/jb_compressed.sh

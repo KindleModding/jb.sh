@@ -1,3 +1,5 @@
+#!/bin/sh
+
 for JOB in src/jobs/*.sh ; do
     echo "- Packing jb.sh job: $(basename $JOB)"
     echo "" >> build/jb.sh
