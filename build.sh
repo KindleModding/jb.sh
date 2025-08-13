@@ -19,6 +19,7 @@ set +e
 set -e
 
 echo "Creating folders"
+mkdir -p cache
 mkdir -p build/firmware/mnt
 mkdir -p build/firmware/sqsh_mnt
 mkdir -p build/patched_uks
@@ -46,6 +47,7 @@ cd sh_integration
 cd ..
 
 echo "Building FBInk"
+cp fbink_patch/* FBInk/
 cd FBInk
     meson setup --cross-file ~/x-tools/arm-kindlehf-linux-gnueabihf/meson-crosscompile.txt builddir_armhf -Dtarget=Kindle -Dbitmap=enabled -Ddraw=enabled -Dfonts=enabled -Dimage=enabled -Dinputlib=enabled -Dopentype=enabled -Dfbink=enabled -Dinput_scan=enabled -Dfbdepth=enabled
     meson setup --cross-file ~/x-tools/arm-kindlepw2-linux-gnueabi/meson-crosscompile.txt builddir_armel -Dtarget=Kindle -Dbitmap=enabled -Ddraw=enabled -Dfonts=enabled -Dimage=enabled -Dinputlib=enabled -Dopentype=enabled -Dfbink=enabled -Dinput_scan=enabled -Dfbdepth=enabled
@@ -59,7 +61,7 @@ cd FBInk
     do
         cp -f "builddir_${ARCH}/libfbink_input.so" "../build/kmc/${ARCH}/lib/"
         cp -f "builddir_${ARCH}/libfbink.so" "../build/kmc/${ARCH}/lib/"
-        cp -f "builddir_${ARCH}/input_scan" "./src/kmc/${ARCH}/bin/"
+        cp -f "builddir_${ARCH}/input_scan" "../build/kmc/${ARCH}/bin/"
         cp -f "builddir_${ARCH}/fbink" "../build/kmc/${ARCH}/bin/"
         cp -f "builddir_${ARCH}/fbdepth" "../build/kmc/${ARCH}/bin/"
     done
@@ -79,14 +81,14 @@ KINDLETOOL="${PWD}/KindleTool/KindleTool/Release/kindletool"
 echo "Downloading firmware"
 if command -v aria2c >/dev/null 2>&1
 then
-    aria2c -c -s 16 -x 16 -k 2M "https://www.amazon.com/update_Kindle_Oasis_10th_Gen" -o "build/firmware.bin"
+    aria2c -c -s 16 -x 16 -k 2M "https://www.amazon.com/update_Kindle_Oasis_10th_Gen" -o "cache/firmware.bin"
 else
-    curl --progress-bar -L -C - -o "build/firmware.bin" "https://www.amazon.com/update_Kindle_Oasis_10th_Gen"
+    curl --progress-bar -L -C - -o "cache/firmware.bin" "https://www.amazon.com/update_Kindle_Oasis_10th_Gen"
 fi
 
 echo "Extracting + mounting firmware"
-${KINDLETOOL} extract build/firmware.bin build/firmware
-gunzip build/firmware*rootfs*.img.gz
+${KINDLETOOL} extract cache/firmware.bin build/firmware
+gunzip build/firmware/*rootfs*.img.gz
 sudo mount -o loop build/firmware/*rootfs*.img build/firmware/mnt
 
 echo "Patching UKS SQSH"
@@ -99,7 +101,7 @@ else
     cp build/firmware/mnt/etc/uks/* build/patched_uks
 fi
 
-cat > "build/firmware/pubdevkey01.pem" << EOF
+cat > "build/patched_uks/pubdevkey01.pem" << EOF
 -----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJn1jWU+xxVv/eRKfCPR9e47lP
 WN2rH33z9QbfnqmCxBRLP6mMjGy6APyycQXg3nPi5fcb75alZo+Oh012HpMe9Lnp
