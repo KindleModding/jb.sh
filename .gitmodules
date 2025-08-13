@@ -1,0 +1,9 @@
+[submodule "FBInk"]
+	path = FBInk
+	url = https://github.com/NiLuJe/FBInk
+[submodule "sh_integration"]
+	path = sh_integration
+	url = https://github.com/KindleModding/sh_integration.git
+[submodule "KindleTool"]
+	path = KindleTool
+	url = https://github.com/NiLuJe/KindleTool.git
