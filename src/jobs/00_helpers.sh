@@ -1,6 +1,11 @@
 #!/bin/sh
 
 ###
+# Defines
+###
+JB_VERSION="v1.0.0"
+
+###
 # Define logging function
 ###
 
