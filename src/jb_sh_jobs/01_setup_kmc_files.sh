@@ -1,0 +1,35 @@
+#!/bin/sh
+
+###
+# Fix permissions for KMC (MKK doesn't need this)
+###
+log "Checking storage..."
+# We track how much storage the currently installed hotfix/monolith takes (since we're gonna delete it, it shouldn't count)
+STORAGE_FREEABLE=$((0))
+
+if [ -d "/var/local/kmc" ]; then
+    STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(df -k /var/local/kmc | tail -n 1 | tr -s ' ' | cut -d' ' -f4)))
+fi
+if [ -d "/var/local/mkk" ]; then
+    STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(df -k /var/local/mkk | tail -n 1 | tr -s ' ' | cut -d' ' -f4)))
+fi
+
+# Make sure we have enough space in /var/local to unpack our KMC and MKK tars
+if [ "$(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)" -lt "$(($(df -k /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))" ] ; then
+    log "not enough space left in varlocal"
+    log "Needed: $(($(df -k /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))"
+    log "Available: $(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)"
+    rm -rf /tmp/kmc
+    return 1
+fi
+
+make_mutable /var/local/mkk
+rm -rf /var/local/mkk
+mkdir /var/local/mkk
+
+make_mutable "/var/local/kmc"
+cp -rf /tmp/kmc/* /var/local/kmc
+rm -rf /tmp/kmc
+
+# Run persistence script (what was once the hotfix)
+sh /var/local/kmc/persistence/run_persistence.sh

@@ -2,6 +2,10 @@
 
 log "Disabling OTA"
 
+# Kill them asap
+killall otaupd -s -9
+killall otav3 -s -9
+
 if [ -f "/usr/bin/otaupd" ] ; then
     log "Renaming otaupd"
     make_mutable /usr/bin/otaupd
