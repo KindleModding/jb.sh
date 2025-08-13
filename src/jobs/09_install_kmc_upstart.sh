@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Check if we need to do something with the KMC job
 if [ -f "/var/local/kmc/persistence/kmc.conf" ] ; then
 	if [ ! -f "/etc/upstart/kmc.conf" ] ; then
