@@ -7,6 +7,7 @@ log "Checking storage..."
 # We track how much storage the currently installed hotfix/monolith takes (since we're gonna delete it, it shouldn't count)
 STORAGE_FREEABLE=$((0))
 
+log "Reading storage from folders"
 if [ -d "/var/local/kmc" ]; then
     STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(df -k /var/local/kmc | tail -n 1 | tr -s ' ' | cut -d' ' -f4)))
 fi
@@ -23,13 +24,17 @@ if [ "$(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)" -lt "$(($(df 
     return 1
 fi
 
+log "Removing mkk"
 make_mutable /var/local/mkk
 rm -rf /var/local/mkk
 mkdir /var/local/mkk
 
+log "Unpacking KMC"
 make_mutable "/var/local/kmc"
+mkdir -p /var/local/kmc
 cp -rf /tmp/kmc/* /var/local/kmc
 rm -rf /tmp/kmc
 
+log "Running persistence script"
 # Run persistence script (what was once the hotfix)
 sh /var/local/kmc/persistence/run_persistence.sh
