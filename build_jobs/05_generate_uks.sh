@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Extracting + mounting firmware"
-${KINDLETOOL} extract cache/firmware.bin build/firmware > /dev/null 2>&1
+${KINDLETOOL} extract cache/firmware.bin build/firmware > "$LOG" 2>&1
 gunzip build/firmware/*rootfs*.img.gz
 sudo mount -o loop build/firmware/*rootfs*.img build/firmware/mnt
 
@@ -23,4 +23,4 @@ eEgloIdm1E4LOsyrz4kttQtGRlzCErmBGt6+cAVEV86y2phOJ3mLk0Ek9UQXbIUf
 rvyJnS2MKLG2cczjlQIDAQAB
 -----END PUBLIC KEY-----
 EOF
-mksquashfs build/patched_uks build/kmc/persistence/updater_keys.sqsh > /dev/null
+mksquashfs build/patched_uks build/kmc/persistence/updater_keys.sqsh > "$LOG"

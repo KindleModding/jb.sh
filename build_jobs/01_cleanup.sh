@@ -2,9 +2,9 @@
 
 echo "Cleaning up"
 set +e
-    rm -rf build > /dev/null 2>&1
-    sudo umount build/sqsh_mnt > /dev/null 2>&1
-    sudo umount build/mnt > /dev/null 2>&1
+    rm -rf build > "$LOG" 2>&1
+    sudo umount build/sqsh_mnt > "$LOG" 2>&1
+    sudo umount build/mnt > "$LOG" 2>&1
 set -e
 
 echo "Creating folders"

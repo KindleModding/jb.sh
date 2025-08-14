@@ -3,7 +3,7 @@
 This repository builds the infamous `jb.sh` script used by [currently unnamed jailbreak] (backported to WinterBreak)  
 
 ## What
-The idea behind `jb.sh` was to eliminate the `hotfix` as it was defunct and cumbersome in favour for having the jailbreak simply run `curl kindlemodding.org/jb.sh | sh`  
+The idea behind `jb.sh` was to eliminate the `hotfix` as it was defunct and cumbersome in favour for having the jailbreak simply run `curl jb.kindlemodding.org | sh`  
 Hosting it online also means that during re-runs of the script it will always be up to date, circumventing any potential countermeasures (to an extent)
 
 ## Additions
