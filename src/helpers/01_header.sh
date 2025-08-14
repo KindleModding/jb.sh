@@ -9,3 +9,4 @@ log "- Carl Sagan"
 log
 log "Jailbroken - $JAILBROKEN"
 log "Arch - $ARCH"
+log
