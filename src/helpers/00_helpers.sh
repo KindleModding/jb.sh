@@ -9,10 +9,10 @@ JB_VERSION="v1.0.0"
 # Define logging function
 ###
 
-LOG_TO_FILE=0
-if [ ! -f "/mnt/us/jb.sh.log" ] ; then
-    LOG_TO_FILE=1
-fi
+#LOG_TO_FILE=0
+#if [ ! -f "/mnt/us/jb.sh.log" ] ; then
+#    LOG_TO_FILE=1
+#fi
 
 JAILBROKEN=0
 if [ -f "/etc/upstart/kmc.conf" ] ; then
@@ -28,12 +28,8 @@ fi
 
 POS=1
 log() {
-    if [ $LOG_TO_FILE -eq 1 ]; then
-        echo "${1}" >> /mnt/us/jb.sh.log
-    fi
-    if [ $JAILBROKEN -eq 0 ]; then
-        eips 0 $POS "${1}"
-    fi
+    echo "${1}" >> /mnt/us/jb.sh.log
+    eips 0 $POS "${1}"
     echo "${1}"
     f_log "I" "JB.SH" "" "${1}"
     POS=$((POS+1))

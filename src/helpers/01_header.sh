@@ -7,3 +7,5 @@ log "  \"If you wish to make an apple pie from scratch"
 log "  you must first invent the universe\""
 log "- Carl Sagan"
 log
+log "Jailbroken - $JAILBROKEN"
+log "Arch - $ARCH"
