@@ -1,4 +1,5 @@
 #!/bin/sh
+log "Running persistence"
 
 log "Setting KMC permissions"
 chmod -R a+rx /var/local/kmc/armel/*

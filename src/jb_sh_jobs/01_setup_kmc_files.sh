@@ -9,16 +9,16 @@ STORAGE_FREEABLE=$((0))
 
 log "Reading storage from folders"
 if [ -d "/var/local/kmc" ]; then
-    STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(df -k /var/local/kmc | tail -n 1 | tr -s ' ' | cut -d' ' -f4)))
+    STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(du -ks /var/local/kmc | cut -f1)))
 fi
 if [ -d "/var/local/mkk" ]; then
-    STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(df -k /var/local/mkk | tail -n 1 | tr -s ' ' | cut -d' ' -f4)))
+    STORAGE_FREEABLE=$(($STORAGE_FREEABLE + $(du -ks /var/local/mkk | cut -f1)))
 fi
 
 # Make sure we have enough space in /var/local to unpack our KMC and MKK tars
-if [ "$(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)" -lt "$(($(df -k /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))" ] ; then
+if [ "$(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)" -lt "$(($(du -ks /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))" ] ; then
     log "not enough space left in varlocal"
-    log "Needed: $(($(df -k /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))"
+    log "Needed: $(($(du -ks /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))"
     log "Available: $(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)"
     rm -rf /tmp/kmc
     return 1
@@ -37,4 +37,4 @@ rm -rf /tmp/kmc
 
 log "Running persistence script"
 # Run persistence script (what was once the hotfix)
-sh /var/local/kmc/persistence/run_persistence.sh
+sh /var/local/kmc/persistence/persistence.sh # Run it directly since jb.sh MUST be run as root

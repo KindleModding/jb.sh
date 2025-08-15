@@ -9,10 +9,14 @@ JB_VERSION="v1.0.0"
 # Define logging function
 ###
 
-#LOG_TO_FILE=0
-#if [ ! -f "/mnt/us/jb.sh.log" ] ; then
-#    LOG_TO_FILE=1
-#fi
+LOG_TO_FILE=0
+if [ ! -f "/mnt/us/jb.sh.log" ] ; then
+    LOG_TO_FILE=1
+else
+    if ! grep -q "Running persistence" "/mnt/us/jb.sh.log" ; then
+        LOG_TO_FILE=1
+    fi
+fi
 
 JAILBROKEN=0
 if [ -f "/etc/upstart/kmc.conf" ] ; then
@@ -28,10 +32,17 @@ fi
 
 POS=1
 log() {
-    echo "${1}" >> /mnt/us/jb.sh.log
-    eips 0 $POS "${1}"
+    if [ $JAILBROKEN -eq 1 ]; then
+        echo "${1}" >> /mnt/us/jb.sh.log
+    fi
+
+    if command -v eips_v2 >/dev/null 2>&1; then
+        eips_v2 text "${1}" --top $(( POS * 24 ))
+    else
+        eips 0 $POS "${1}"
+    fi
+    
     echo "${1}"
-    f_log "I" "JB.SH" "" "${1}"
     POS=$((POS+1))
 }
 
