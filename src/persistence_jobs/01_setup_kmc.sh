@@ -34,7 +34,7 @@ make_immutable /var/local/kmc
 log "Installing libkh binaries"
 mkdir -p "/mnt/us/libkh/bin"
 rm -f /mnt/us/libkh/bin/fbink
-cp -f "/var/local/mkk/${ARCH}/bin/fbink" "/mnt/us/libkh/bin/fbink" # Yeah we do copying bc userstore is funky
+cp -f "/var/local/kmc/${ARCH}/bin/fbink" "/mnt/us/libkh/bin/fbink" # Yeah we do copying bc userstore is funky
 chmod a+rx "/mnt/us/libkh/bin/fbink"
 # Since the links to these binaries are SOFT links, no additional copying/linking is required
 
