@@ -23,6 +23,6 @@ INSERT INTO associations (interface, handlerId, contentId, defaultAssoc) VALUES 
 
 INSERT INTO handlerIds (handlerId) VALUES ('com.notmarek.shell_integration.extractor');
 INSERT INTO properties (handlerId, name, value) VALUES ('com.notmarek.shell_integration.extractor', 'lib', '/var/local/kmc/lib/sh_integration_extractor.so');
-INSERT INTO properties (handlerId, name, value) VALUES ('com.notmarek.shell_integration.extractor', 'entry', 'load_file_extractor');
+INSERT INTO properties (handlerId, name, value) VALUES ('com.notmarek.shell_integration.extractor', 'entry', 'load_extractor');
 INSERT INTO associations (interface, handlerId, contentId, defaultAssoc) VALUES ('extractor', 'com.notmarek.shell_integration.extractor', 'GL:*.sh', 'true');
 COMMIT;
