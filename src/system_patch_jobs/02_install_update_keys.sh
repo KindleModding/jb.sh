@@ -29,7 +29,7 @@ install_touch_update_key_squash()
 	local my_loop="$(grep ' /etc/uks ' /proc/mounts | cut -f1 -d' ')"
     umount "${my_loop}"
     losetup -d "${my_loop}"
-    cp -f "/var/local/kmc/persistence/updater_keys.sqsh" "/etc/uks.sqsh"
+    cp -f "/var/local/kmc/system_patches/updater_keys.sqsh" "/etc/uks.sqsh"
     mount -o loop="${my_loop}",nodiratime,noatime -t squashfs "/etc/uks.sqsh" "/etc/uks"
     #make_immutable "/etc/uks.sqsh" # Breaks 12th gen
 
@@ -56,7 +56,7 @@ if [ ! -f "/etc/uks.sqsh" ] ; then
 fi
 
 # Check if we need to do something with the OTA keystore
-if [ -f "/etc/uks.sqsh" ] && [ -f "/var/local/kmc/persistence/updater_keys.sqsh" ] ; then
+if [ -f "/etc/uks.sqsh" ] && [ -f "/var/local/kmc/system_patches/updater_keys.sqsh" ] ; then
 	# Check it.
 	if [ "$(md5sum "/etc/uks.sqsh" | cut -d' ' -f1)" != "17b5ca595e70ffeee1424ed5e7f09c47" ] ; then
 		# Unknown (?!) jailbreak keystore, install it

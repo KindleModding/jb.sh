@@ -35,6 +35,6 @@ mkdir -p /var/local/kmc
 cp -rf /tmp/kmc/* /var/local/kmc
 rm -rf /tmp/kmc
 
-log "Running persistence script"
-# Run persistence script (what was once the hotfix)
-sh /var/local/kmc/persistence/persistence.sh # Run it directly since jb.sh MUST be run as root
+log "Running system patch script"
+# Run system patch script (what was once the hotfix)
+sh /var/local/kmc/system_patches/patch_system.sh # Run it directly since jb.sh MUST be run as root

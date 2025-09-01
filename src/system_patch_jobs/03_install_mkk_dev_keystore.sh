@@ -3,7 +3,7 @@
 # Check if we need to do something with the Kindlet developer keystore
 # No developer keystore, install it                       		OR  The developer keystore doesn't match - NOTE: This *will* mess with real, official developer keystores. Not that we really care about it, but it should be noted ;).
 if [ ! -f "/var/local/java/keystore/developer.keystore" ] || \
-	[ "$(md5sum "/var/local/java/keystore/developer.keystore" | cut -d' ' -f1)" != "$(md5sum "/var/local/kmc/persistence/developer.keystore" | cut -d' ' -f1)" ] ; then
+	[ "$(md5sum "/var/local/java/keystore/developer.keystore" | cut -d' ' -f1)" != "$(md5sum "/var/local/kmc/system_patches/developer.keystore" | cut -d' ' -f1)" ] ; then
 	
 	# Install the kindlet keystore
 	log "Copying the kindlet keystore"
@@ -16,7 +16,7 @@ if [ ! -f "/var/local/java/keystore/developer.keystore" ] || \
 	else
 		# NOTE: This might have gone poof on newer devices without Kindlet support, so, create it as needed
 		mkdir -p "/var/local/java/keystore"
-		cp -f "/var/local/kmc/persistence/developer.keystore" "/var/local/java/keystore/developer.keystore"
+		cp -f "/var/local/kmc/system_patches/developer.keystore" "/var/local/java/keystore/developer.keystore"
 	fi
 
 	# Show some feedback

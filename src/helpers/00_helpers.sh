@@ -13,7 +13,7 @@ LOG_TO_FILE=0
 if [ ! -f "/mnt/us/jb.sh.log" ] ; then
     LOG_TO_FILE=1
 else
-    if ! grep -q "Running persistence" "/mnt/us/jb.sh.log" ; then
+    if ! grep -q "Running system patch" "/mnt/us/jb.sh.log" ; then
         LOG_TO_FILE=1
     fi
 fi

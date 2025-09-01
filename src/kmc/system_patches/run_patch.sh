@@ -8,4 +8,4 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
     ARCH="armhf"
 fi
 
-/var/local/kmc/${ARCH}/bin/su -c "sh /var/local/kmc/persistence/persistence.sh"
+/var/local/kmc/${ARCH}/bin/su -c "sh /var/local/kmc/system_patches/patch_system.sh"
