@@ -18,3 +18,4 @@ The final `jb.sh` script is built from many smaller scripts (see: `src/jobs`) an
 - patch_system.sh is where the bulk of the logic happens - it is also run every boot - just in case
 - persistence is handled the same as the hotfix - appreg.db hook uses run_patch.sh which calls gandalf to run patch_system.sh
 - some JB methods have jb.sh run every like 5 minutes or smth stupid - this is probably fine and won't kill the eMMC
+    (todo: add a check for this)
