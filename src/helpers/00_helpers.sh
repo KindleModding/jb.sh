@@ -3,14 +3,14 @@
 ###
 # Defines
 ###
-JB_VERSION="vEXPERIMENTAL"
+JB_VERSION="vE2"
 
 ###
 # Define logging function
 ###
 
 JB_SH_DEBUG=0
-if [ -f "/mnt/us/jb.sh.debug" ] ; then
+if [ -f "/mnt/us/jb.sh.debug" ]; then
     JB_SH_DEBUG=1
 fi
 
@@ -35,7 +35,7 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
     ARCH="armhf"
 fi
 
-if [ $RUN_MODE -eq 1 ] && [ $JAILBROKEN -eq 1 ]; then
+if [ $RUN_MODE -eq 0 ] && [ $JAILBROKEN -eq 1 ]; then
     exit
 fi
 
