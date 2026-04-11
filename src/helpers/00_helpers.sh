@@ -48,10 +48,6 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
     ARCH="armhf"
 fi
 
-if [ $RUN_MODE -eq 0 ] && [ $JAILBROKEN -eq 1 ]; then
-    exit
-fi
-
 
 POS=1
 log() {
@@ -68,6 +64,13 @@ log() {
     echo "${1}"
     POS=$((POS+1))
 }
+
+if [ $RUN_MODE -eq 0 ] && [ $JAILBROKEN -eq 1 ]; then
+    if [ $JB_SH_DEBUG -eq 1 ]; then
+        log "Device already jailbroken - exiting!"
+    fi
+    exit
+fi
 
 # Find which chattr to use
 OLD_CHATTR="/bin/chattr"
