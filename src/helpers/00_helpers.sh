@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_VERSION="vE2"
+JB_VERSION="vE3"
 
 ###
 # Define logging function
