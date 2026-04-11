@@ -1,15 +1,20 @@
 # In all scripts
-log "Monolithic jb.sh system patcher"
-log "Created by HackerDude"
-log "$JB_VERSION"
+if [ -n "${JB_INFO+x}" ]; then
+    log "Powered by jb.sh - created by Hackerdude"
+    log "$JB_SH_VERSION"
+    echo "$JB_INFO" | while IFS= read -r line ; do log $line; done
+else
+    log "Monolithic jb.sh"
+    log "$JB_SH_VERSION"
+    log "Created by Hackerdude"
+    log "https://donate.hackerdude.tech"
+    log ""
+    log "  \"If you wish to make an apple pie from scratch"
+    log "  you must first invent the universe\""
+    log " Carl Sagan"
+fi
 log ""
-log "  \"If you wish to make an apple pie from scratch"
-log "  you must first invent the universe\""
-log " Carl Sagan"
-log ""
-log "Run Mode - $RUN_MODE"
-log "Jailbroken - $JAILBROKEN"
-log "Arch - $ARCH"
+log "P:$RUN_MODE:$JAILBROKEN:$ARCH"
 log ""
 
 if [ $JB_SH_DEBUG -eq 1 ]; then

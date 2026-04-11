@@ -3,11 +3,11 @@
 ###
 # Defines
 ###
-JB_VERSION="vE8"
+JB_SH_VERSION="vE9"
 
-###
-# Define logging function
-###
+if [ -f "/var/local/jailbreak.txt" ]; then
+    JB_INFO=$(cat /var/local/jailbreak.txt)
+fi
 
 JB_SH_DEBUG=0
 if [ -f "/mnt/us/jb.sh.debug" ]; then
