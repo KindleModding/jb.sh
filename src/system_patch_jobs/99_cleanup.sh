@@ -12,7 +12,7 @@ sleep 3 # Wait for it to stop
 /var/local/kmc/bin/fbink -y -6 -m -S 4 "(Error dialog is fine)"
 /var/local/kmc/bin/fbink -y -5 -m -S 4 "(Just press close and keep waiting!)"
 echo "You are jailbroken!" > /mnt/us/documents/JAILBROKEN.txt
-echo "Hackerdude was here" >> /mnt/us/documents/JAILBROKEN.txt
-echo "https://hackerdude.tech" >> /mnt/us/documents/JAILBROKEN.txt
+echo "(jb.sh $JB_VERSION)" >> /mnt/us/documents/JAILBROKEN.txt
 echo "https://kindlemodding.org" >> /mnt/us/documents/JAILBROKEN.txt
+echo "https://hackerdude.tech" >> /mnt/us/documents/JAILBROKEN.txt
 fi
