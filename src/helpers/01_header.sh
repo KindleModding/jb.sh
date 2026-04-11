@@ -8,6 +8,7 @@ log "  you must first invent the universe\""
 log " Carl Sagan"
 log ""
 log "Run Mode - $RUN_MODE"
+log "Jailbroken - $JAILBROKEN"
 log "Arch - $ARCH"
 log ""
 

@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_VERSION="v1.0.0"
+JB_VERSION="vEXPERIMENTAL"
 
 ###
 # Define logging function
@@ -15,11 +15,12 @@ if [ -f "/mnt/us/jb.sh.debug" ] ; then
 fi
 
 # RUN_MODE tells the script what mode it's running in
-# 0 - Manually run
-# 1 - Run automatically
+# 0 - Run automatically on startup
+# 1 - Manually run
+# 2 - Run as part of an update
 if [ ! -n "${RUN_MODE+x}" ]; then
-# If run_mode isn't specified we assume it was done automatically
-RUN_MODE=1
+# If run_mode isn't specified we assume it was done automatically on startup or smth (ie: UJ)
+RUN_MODE=0
 fi
 
 # If already jailbroken then we know this is an update
@@ -32,6 +33,10 @@ ARCH="armel"
 # Check if the Kindle is ARMHF or ARMEL
 if [ -f /lib/ld-linux-armhf.so.3 ]; then
     ARCH="armhf"
+fi
+
+if [ $RUN_MODE -eq 1 ] && [ $JAILBROKEN -eq 1 ]; then
+    exit
 fi
 
 
