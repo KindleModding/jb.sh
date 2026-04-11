@@ -1,7 +1,7 @@
 mntroot ro
 log "Done!"
 
-if [ $RUN_MODE -eq 0 ]; then
+if [ $RUN_MODE -eq 0 ] || [ $JAILBROKEN -eq 0 ]; then
 log "Restarting gui..."
 sleep 2 # So they can read what's about to happen
 restart lab126_gui &

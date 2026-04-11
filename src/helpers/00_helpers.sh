@@ -9,17 +9,22 @@ JB_VERSION="v1.0.0"
 # Define logging function
 ###
 
-LOG_TO_FILE=0
-if [ ! -f "/mnt/us/jb.sh.log" ] ; then
-    LOG_TO_FILE=1
-else
-    if ! grep -q "Running system patch" "/mnt/us/jb.sh.log" ; then
-        LOG_TO_FILE=1
-    fi
+JB_SH_DEBUG=0
+if [ -f "/mnt/us/jb.sh.debug" ] ; then
+    JB_SH_DEBUG=1
 fi
 
+# RUN_MODE tells the script what mode it's running in
+# 0 - Manually run
+# 1 - Run automatically
+if [ ! -n "${RUN_MODE+x}" ]; then
+# If run_mode isn't specified we assume it was done automatically
+RUN_MODE=1
+fi
+
+# If already jailbroken then we know this is an update
 JAILBROKEN=0
-if [ -f "/etc/upstart/kmc.conf" ] ; then
+if [ -d "/var/local/kmc" ] ; then
     JAILBROKEN=1
 fi
 
@@ -32,7 +37,7 @@ fi
 
 POS=1
 log() {
-    if [ $JAILBROKEN -eq 1 ]; then
+    if [ $JB_SH_DEBUG -eq 1 ]; then
         echo "${1}" >> /mnt/us/jb.sh.log
     fi
 
