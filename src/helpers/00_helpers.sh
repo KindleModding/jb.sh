@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_VERSION="vE5"
+JB_VERSION="vE6"
 
 ###
 # Define logging function
@@ -38,7 +38,7 @@ fi
 
 # If already jailbroken then we know this is an update
 JAILBROKEN=0
-if [ -d "/var/local/kmc" ] ; then
+if [ -d "/var/local/kmc/bin" ] ; then
     JAILBROKEN=1
 fi
 
