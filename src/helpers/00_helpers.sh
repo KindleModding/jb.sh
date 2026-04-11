@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_VERSION="vE3"
+JB_VERSION="vE4"
 
 ###
 # Define logging function
@@ -21,6 +21,19 @@ fi
 if [ ! -n "${RUN_MODE+x}" ]; then
 # If run_mode isn't specified we assume it was done automatically on startup or smth (ie: UJ)
 RUN_MODE=0
+fi
+
+if [ -f "/mnt/us/jb.sh.runmode0" ]; then
+    RUN_MODE=0
+    rm /mnt/us/jb.sh.runmode0
+fi
+if [ -f "/mnt/us/jb.sh.runmode1" ]; then
+    RUN_MODE=1
+    rm /mnt/us/jb.sh.runmode1
+fi
+if [ -f "/mnt/us/jb.sh.runmode2" ]; then
+    RUN_MODE=2
+    rm /mnt/us/jb.sh.runmode2
 fi
 
 # If already jailbroken then we know this is an update
