@@ -3,11 +3,11 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="vE11"
+JB_SH_VERSION="vE12"
 
-if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
-    JB_HEADER=$(cat /var/local/jailbreak.txt)
-fi
+#if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
+#    JB_HEADER=$(cat /var/local/jailbreak.txt)
+#fi
 
 if [ ! -n "${JB_SH_DEBUG+x}" ]; then
 # If run_mode isn't specified we assume it was done automatically on startup or smth (ie: UJ)
