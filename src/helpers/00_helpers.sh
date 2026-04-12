@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="vE13"
+JB_SH_VERSION="vE14"
 
 #if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
 #    JB_HEADER=$(cat /var/local/jailbreak.txt)
@@ -58,15 +58,14 @@ log() {
     if [ $JB_SH_DEBUG -eq 1 ]; then
         printf "${1}\n" >> /mnt/us/jb.sh.log
     fi
-
-    if command -v eips_v2 >/dev/null 2>&1; then
-        eips_v2 text "${1}" --top $(( POS * 24 ))
-    else
-        eips 0 $POS "${1}"
-    fi
-    
     printf "${1}\n"
-    POS=$((POS+1))
+
+    POS=$((POS+1)) # Increment first in case there's an error
+    if command -v eips_v2 >/dev/null 2>&1; then
+        eips_v2 text "${1}" --top $(( (POS-1) * 24 ))
+    else
+        eips 0 $((POS-1)) "${1}"
+    fi
 }
 
 # Find which chattr to use

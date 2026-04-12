@@ -14,7 +14,7 @@ else
     log " Carl Sagan"
 fi
 log ""
-log "J:$RUN_MODE:$JAILBROKEN:$ARCH"
+log "J$RUN_MODE$JAILBROKEN$ARCH"
 log ""
 
 if [ $JB_SH_DEBUG -eq 1 ]; then

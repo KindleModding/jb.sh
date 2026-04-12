@@ -1,6 +1,4 @@
 #!/bin/sh
-log "Running system patch"
-
 log "Setting KMC permissions"
 chmod -R a+rx /var/local/kmc/armel/*
 chmod -R a+rx /var/local/kmc/armhf/*
