@@ -24,4 +24,4 @@ fi
 # Run system patch script (what was once the hotfix)
 # @TODO: We should differenciate between system patches for rootless jb.sh variants
 log "Running system patch script"
-sh /var/local/kmc/system_patches/patch_system.sh # Run it directly since jb.sh MUST be run as root
+RUN_MODE=$RUN_MODE JAILBROKEN=$JAILBROKEN sh /var/local/kmc/system_patches/patch_system.sh # Run it directly since jb.sh MUST be run as root

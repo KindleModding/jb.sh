@@ -8,14 +8,11 @@ else
     log "$JB_SH_VERSION"
     log "Created by Hackerdude"
     log "https://donate.hackerdude.tech"
-    log ""
     log "  \"If you wish to make an apple pie from scratch"
     log "  you must first invent the universe\""
     log " Carl Sagan"
 fi
-log ""
-log "P$RUN_MODE$JAILBROKEN$ARCH"
-log ""
+log "P:$RUN_MODE:$JAILBROKEN:$ARCH"
 
 if [ $JB_SH_DEBUG -eq 1 ]; then
 log "Running in DEBUG mode"
