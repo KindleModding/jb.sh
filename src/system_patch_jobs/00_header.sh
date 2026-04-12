@@ -2,7 +2,7 @@
 if [ -n "${JB_INFO+x}" ]; then
     log "Powered by jb.sh - created by Hackerdude"
     log "$JB_SH_VERSION"
-    echo "$JB_INFO" | while IFS= read -r line ; do log $line; done
+    printf "$JB_INFO" | while IFS= read -r line ; do echo "$line"; done
 else
     log "Monolithic jb.sh"
     log "$JB_SH_VERSION"

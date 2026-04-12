@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="vE9"
+JB_SH_VERSION="vE10"
 
 if [ -f "/var/local/jailbreak.txt" ]; then
     JB_INFO=$(cat /var/local/jailbreak.txt)
@@ -16,8 +16,8 @@ fi
 
 # RUN_MODE tells the script what mode it's running in
 # 0 - Run automatically on startup
-# 1 - Manually run
-# 2 - Run as part of an update
+# 1 - Manually run (will ignore jailbroken state and forces run)
+# 2 - Run as part of an update (will ignore jailbroken state and forces run)
 if [ ! -n "${RUN_MODE+x}" ]; then
 # If run_mode isn't specified we assume it was done automatically on startup or smth (ie: UJ)
 RUN_MODE=0
