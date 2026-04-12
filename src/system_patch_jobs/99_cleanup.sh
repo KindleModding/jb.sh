@@ -2,15 +2,12 @@ mntroot ro
 log "Done!"
 
 if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
-echo "You are jailbroken!" > /mnt/us/documents/JAILBROKEN.txt
-echo "(jb.sh $JB_SH_VERSION)" >> /mnt/us/documents/JAILBROKEN.txt
-echo "https://kindlemodding.org" >> /mnt/us/documents/JAILBROKEN.txt
-echo "https://hackerdude.tech" >> /mnt/us/documents/JAILBROKEN.txt
-
-# Save jailbreak.txt
-if [ -n "${JB_HEADER+x}" ]; then
-echo $JB_HEADER > /var/local/jailbreak.txt
-fi
+printf "You are jailbroken!\n" > /mnt/us/documents/JAILBROKEN.txt
+printf "(jb.sh $JB_SH_VERSION)\n" >> /mnt/us/documents/JAILBROKEN.txt
+printf "https://kindlemodding.org\n" >> /mnt/us/documents/JAILBROKEN.txt
+printf "https://hackerdude.tech\n" >> /mnt/us/documents/JAILBROKEN.txt
+printf "\n" >> /mnt/us/documents/JAILBROKEN.txt
+printf "$JB_HEADER" >> /mnt/us/documents/JAILBROKEN.txt
 
 log "Restarting gui..."
 sleep 2 # So they can read what's about to happen

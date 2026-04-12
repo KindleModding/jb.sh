@@ -5,7 +5,7 @@
 ###
 JB_SH_VERSION="vE11"
 
-if [ -f "/var/local/jailbreak.txt" ]; then
+if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
     JB_HEADER=$(cat /var/local/jailbreak.txt)
 fi
 
@@ -56,7 +56,7 @@ fi
 POS=1
 log() {
     if [ $JB_SH_DEBUG -eq 1 ]; then
-        echo "${1}" >> /mnt/us/jb.sh.log
+        printf "${1}\n" >> /mnt/us/jb.sh.log
     fi
 
     if command -v eips_v2 >/dev/null 2>&1; then
@@ -65,7 +65,7 @@ log() {
         eips 0 $POS "${1}"
     fi
     
-    echo "${1}"
+    printf "${1}\n"
     POS=$((POS+1))
 }
 
