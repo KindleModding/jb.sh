@@ -8,8 +8,8 @@ echo "https://kindlemodding.org" >> /mnt/us/documents/JAILBROKEN.txt
 echo "https://hackerdude.tech" >> /mnt/us/documents/JAILBROKEN.txt
 
 # Save jailbreak.txt
-if [ -n "${JB_INFO+x}" ]; then
-echo $JB_INFO > /var/local/jailbreak.txt
+if [ -n "${JB_HEADER+x}" ]; then
+echo $JB_HEADER > /var/local/jailbreak.txt
 fi
 
 log "Restarting gui..."

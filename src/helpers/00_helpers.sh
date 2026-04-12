@@ -6,7 +6,7 @@
 JB_SH_VERSION="vE10"
 
 if [ -f "/var/local/jailbreak.txt" ]; then
-    JB_INFO=$(cat /var/local/jailbreak.txt)
+    JB_HEADER=$(cat /var/local/jailbreak.txt)
 fi
 
 JB_SH_DEBUG=0
