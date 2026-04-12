@@ -2,7 +2,7 @@ if [ -n "${JB_HEADER+x}" ]; then
     log "Powered by jb.sh - created by Hackerdude"
     log "$JB_SH_VERSION"
     printf "$JB_HEADER" | while IFS= read -r line ; do log "$line"; done
-    POS=$((POS + $(echo $JB_HEADER | grep -c \n) + 1))
+    POS=$((POS + $(echo $JB_HEADER | grep -c \n) + 2))
 else
     log "Monolithic jb.sh"
     log "$JB_SH_VERSION"
