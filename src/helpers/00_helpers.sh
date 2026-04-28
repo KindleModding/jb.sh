@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="vE18"
+JB_SH_VERSION="vE19"
 
 #if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
 #    JB_HEADER=$(cat /var/local/jailbreak.txt)
@@ -66,6 +66,8 @@ log() {
     else
         eips 0 $((POS-1)) "${1}"
     fi
+    
+    f_log "I" "JB_SH" "" "" "${4}"
 }
 
 # Find which chattr to use
