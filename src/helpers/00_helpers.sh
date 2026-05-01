@@ -41,9 +41,11 @@ if [ -f "/mnt/us/jb.sh.runmode2" ]; then
 fi
 
 # If already jailbroken then we know this is an update
-JAILBROKEN=0
-if [ -d "/var/local/kmc/bin" ] ; then
-    JAILBROKEN=1
+if [ ! -n "${JAILBROKEN+x}" ]; then
+    JAILBROKEN=0
+    if [ -d "/var/local/kmc/bin" ] ; then
+        JAILBROKEN=1
+    fi
 fi
 
 ARCH="armel"
@@ -51,10 +53,6 @@ ARCH="armel"
 if [ -f /lib/ld-linux-armhf.so.3 ]; then
     ARCH="armhf"
 fi
-
-# Source utility functions provided by the system (currently just for f_log)
-# TODO: Make non upstart system compatible
-source /etc/upstart/functions
 
 POS=1
 log() {
@@ -70,7 +68,7 @@ log() {
         eips 0 $((POS-1)) "${1}"
     fi
     
-    f_log "I" "JB_SH" "" "" "${1}"
+    logger "I JB_SH ${RUN_MODE}_${JAILBROKEN}:: ${1}"
 }
 
 # Find which chattr to use
