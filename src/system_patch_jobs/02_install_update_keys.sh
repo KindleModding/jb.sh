@@ -17,9 +17,6 @@ EOF
 	chown root:root "/etc/uks/pubdevkey01.pem"
 	chmod 0644 "/etc/uks/pubdevkey01.pem"
 	make_immutable "/etc/uks/pubdevkey01.pem"
-
-	# Show some feedback
-	print_jb_install_feedback
 }
 
 install_touch_update_key_squash()
@@ -32,9 +29,6 @@ install_touch_update_key_squash()
     cp -f "/var/local/kmc/system_patches/updater_keys.sqsh" "/etc/uks.sqsh"
     mount -o loop="${my_loop}",nodiratime,noatime -t squashfs "/etc/uks.sqsh" "/etc/uks"
     #make_immutable "/etc/uks.sqsh" # Breaks 12th gen
-
-	# Show some feedback
-	print_jb_squash_install_feedback
 }
 
 # Check if we need to do something with the OTA pubkey

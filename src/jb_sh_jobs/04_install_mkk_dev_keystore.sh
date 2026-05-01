@@ -16,7 +16,4 @@ if [ ! -f "/var/local/java/keystore/developer.keystore" ] || \
 		mkdir -p "/var/local/java/keystore"
 		cp -f "/var/local/kmc/system_patches/developer.keystore" "/var/local/java/keystore/developer.keystore"
 	fi
-
-	# Show some feedback
-	print_mkk_dev_keystore_feedback
 fi
