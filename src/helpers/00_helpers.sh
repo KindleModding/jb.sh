@@ -52,6 +52,9 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
     ARCH="armhf"
 fi
 
+# Source utility functions provided by the system (currently just for f_log)
+# TODO: Make non upstart system compatible
+source /etc/upstart/functions
 
 POS=1
 log() {
@@ -67,7 +70,7 @@ log() {
         eips 0 $((POS-1)) "${1}"
     fi
     
-    f_log "I" "JB_SH" "" "" "${4}"
+    f_log "I" "JB_SH" "" "" "${1}"
 }
 
 # Find which chattr to use
