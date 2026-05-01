@@ -1,5 +1,5 @@
 mntroot ro
-log "Done!"
+log "Done"
 
 if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
 printf "You are jailbroken!\n" > /mnt/us/documents/JAILBROKEN.txt

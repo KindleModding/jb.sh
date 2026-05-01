@@ -80,7 +80,7 @@ elif [ -f "${NEW_CHATTR}" ]; then
     CHATTR="${NEW_CHATTR}"
 else
     # We couldn't find one, show an error, and pretend it's the old one I guess
-    log "Error: Could not find chattr command! This is bad!"
+    log "Error: Could not find chattr command. This is bad."
     CHATTR="${OLD_CHATTR}" # won't be found, but better than nothing?
 fi
 
