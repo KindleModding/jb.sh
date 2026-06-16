@@ -38,8 +38,22 @@ cd FBInk
     done
 cd ..
 
-#echo "Building KMRP"
-# @TODO
+echo "Building KPM"
+cd KPM
+    meson setup --cross-file ~/x-tools/arm-kindlehf-linux-gnueabihf/meson-crosscompile.txt builddir_armhf --reconfigure --buildtype=release > "$LOG"
+    meson setup --cross-file ~/x-tools/arm-kindlepw2-linux-gnueabi/meson-crosscompile.txt builddir_armel --reconfigure --buildtype=release > "$LOG"
+
+    echo "- Building armhf"
+    meson compile -C builddir_armhf > "$LOG"
+    echo "- Building armel"
+    meson compile -C builddir_armel > "$LOG"
+    echo "- Copying KPM"
+    for ARCH in armel armhf
+    do
+        cp -f "builddir_${ARCH}/src/libkpm.so" "../build/kmc/${ARCH}/lib/"
+        cp -f "builddir_${ARCH}/cli/kpm" "../build/kmc/${ARCH}/bin/"
+    done
+cd ..
 
 echo "Building KindleTool"
 cd KindleTool
