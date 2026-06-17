@@ -6,5 +6,10 @@ for JSON_PATH in "/app/kpp_app_cmds.json" "/usr/share/app/kpp_sys_cmds.json" "/u
             log "Patching debug commands for $JSON_PATH"
             sed -e '/^{/a\' -e '    ";log" : "/usr/bin/logThis.sh",' -i "$JSON_PATH"
         fi
+
+        if ! grep -q "kpm" "$JSON_PATH" ; then
+            log "Patching debug commands for $JSON_PATH"
+            sed -e '/^{/a\' -e '    ";kpm" : "/var/local/kmc/bin/kpm --fbink",' -i "$JSON_PATH"
+        fi
     fi
 done
