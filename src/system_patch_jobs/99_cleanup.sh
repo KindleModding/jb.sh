@@ -12,7 +12,13 @@ printf "$JB_HEADER" >> /mnt/us/documents/JAILBROKEN.txt
 
 log "Restarting gui..."
 sleep 2 # So they can read what's about to happen
-restart lab126_gui &
+if [ -f "/etc/upstart/lab126_gui.conf" ] ; then
+    restart lab126_gui &
+elif [ -f "/etc/upstart/acxe.conf" ] ; then
+    restart acxe &
+else
+    telinit 5
+fi
 sleep 3 # Wait for it to stop
 /var/local/kmc/bin/fbink -y 3 -m -S 7 "Restarting GUI"
 /var/local/kmc/bin/fbink -y 4 -m -S 7 "Please Wait..."
