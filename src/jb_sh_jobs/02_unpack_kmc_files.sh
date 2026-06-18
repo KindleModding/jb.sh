@@ -29,8 +29,12 @@ make_mutable /var/local/mkk
 rm -rf /var/local/mkk
 mkdir /var/local/mkk
 
+log "Removing kmc"
+make_mutable /var/local/kmc
+rm -rf /var/local/kmc
+mkdir /var/local/kmc
+
 log "Unpacking KMC"
 make_mutable "/var/local/kmc"
-mkdir -p /var/local/kmc
 cp -rf /tmp/kmc/* /var/local/kmc
 rm -rf /tmp/kmc
