@@ -1,5 +1,6 @@
 #!/bin/sh
 log "Setting KMC permissions"
+chmod -R a+rx /var/local/kmc/sbin/*
 chmod -R a+rx /var/local/kmc/armel/*
 chmod -R a+rx /var/local/kmc/armhf/*
 chmod 0664 /var/local/kmc/system_patches/kmc.conf
