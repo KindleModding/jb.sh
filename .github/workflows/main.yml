@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
-    - name: build
+    - name: Install Meson
       continue-on-error: true
       run: |
           sudo apt update
@@ -31,7 +31,7 @@ jobs:
             wget -q https://github.com/KindleModding/koxtoolchain/releases/latest/download/kindlehf.tar.gz -O - | tar -xzf - -C ~
     - name: Setup kindle-sdk + dependencies
       run: |
-          sudo apt install -y zlib1g-dev libarchive-dev nettle-dev meson aria2
+          sudo apt install -y zlib1g-dev libarchive-dev nettle-dev aria2
           bash ./kindle-sdk/gen-sdk.sh kindlepw2
           bash ./kindle-sdk/gen-sdk.sh kindlehf
     - name: Build jb.sh
