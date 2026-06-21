@@ -7,12 +7,14 @@ DELETE FROM properties WHERE handlerId='com.notmarek.shell_integration.extractor
 DELETE FROM handlerIds WHERE handlerId='com.notmarek.shell_integration.launcher';
 DELETE FROM handlerIds WHERE handlerId='com.notmarek.shell_integration.extractor';
 DELETE FROM associations WHERE handlerId='com.notmarek.shell_integration.launcher';
+DELETE FROM associations WHERE handlerId='com.notmarek.shell_integration.extractor';
 
 DELETE FROM properties WHERE handlerId='tech.hackerdude.shell_integration.launcher';
 DELETE FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor';
 DELETE FROM handlerIds WHERE handlerId='tech.hackerdude.shell_integration.launcher';
 DELETE FROM handlerIds WHERE handlerId='tech.hackerdude.shell_integration.extractor';
 DELETE FROM associations WHERE handlerId='tech.hackerdude.shell_integration.launcher';
+DELETE FROM associations WHERE handlerId='tech.hackerdude.shell_integration.extractor';
 
 INSERT INTO mimetypes (ext, mimetype) VALUES ('sh', 'MT:text/x-shellscript');
 INSERT INTO extenstions (ext, mimetype) VALUES ('sh', 'MT:text/x-shellscript');
