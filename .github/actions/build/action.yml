@@ -1,5 +1,10 @@
 name: 'Build jb.sh'
 description: 'Builds jb.sh'
+inputs:
+  working-directory:
+    description: 'The path to jb.sh'
+    required: false
+    default: '.'
 runs:
   using: "composite"
   steps:
@@ -28,9 +33,12 @@ runs:
         bash ./kindle-sdk/gen-sdk.sh kindlehf
   - name: Build jb.sh
     shell: bash
+    env:
+        WORKING_DIR: ${{ inputs.working-directory }}
     run: |
+          cd $WORKING_DIR
           LOGGING=1 ./build.sh
   - uses: actions/upload-artifact@v4
     with:
       name: jb.sh
-      path: build/jb.sh
+      path: ${{ inputs.working-directory }}/build/jb.sh
