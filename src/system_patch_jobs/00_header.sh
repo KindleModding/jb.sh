@@ -15,5 +15,5 @@ else
 fi
 
 log ""
-log "P:$RUN_MODE:$JAILBROKEN:$ARCH"
+log "P:$RUN_MODE:$JAILBROKEN:$PLATFORM"
 log ""

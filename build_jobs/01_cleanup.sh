@@ -12,8 +12,8 @@ mkdir -p cache
 mkdir -p build/firmware/mnt
 mkdir -p build/firmware/sqsh_mnt
 mkdir -p build/patched_uks
-for ARCH in armel armhf
+for PLATFORM in kindlepw2 kindlehf
 do
-    mkdir -p build/kmc/$ARCH/bin
-    mkdir -p build/kmc/$ARCH/lib
+    mkdir -p build/kmc/$PLATFORM/bin
+    mkdir -p build/kmc/$PLATFORM/lib
 done

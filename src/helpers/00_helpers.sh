@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="vE22"
+JB_SH_VERSION="vE23"
 
 #if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
 #    JB_HEADER=$(cat /var/local/jailbreak.txt)
@@ -48,10 +48,10 @@ if [ ! -n "${JAILBROKEN+x}" ]; then
     fi
 fi
 
-ARCH="armel"
-# Check if the Kindle is ARMHF or ARMEL
-if [ -f /lib/ld-linux-armhf.so.3 ]; then
-    ARCH="armhf"
+PLATFORM="kindlepw2"
+# Check if the Kindle is kindlehf or kindlepw2
+if [ -f /lib/ld-linux-kindlehf.so.3 ]; then
+    PLATFORM="kindlehf"
 fi
 
 POS=1
