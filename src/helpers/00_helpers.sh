@@ -50,7 +50,7 @@ fi
 
 PLATFORM="kindlepw2"
 # Check if the Kindle is kindlehf or kindlepw2
-if [ -f /lib/ld-linux-kindlehf.so.3 ]; then
+if [ -f /lib/ld-linux-armhf.so.3 ]; then
     PLATFORM="kindlehf"
 fi
 
