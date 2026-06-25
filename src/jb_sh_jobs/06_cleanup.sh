@@ -9,7 +9,7 @@ if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
     printf "https://hackerdude.tech\n" >> /mnt/us/documents/JAILBROKEN.txt
     printf "\n" >> /mnt/us/documents/JAILBROKEN.txt
     printf "$JB_HEADER" >> /mnt/us/documents/JAILBROKEN.txt
-    printf "$JB_HEADER" >> /var/local/jailbreak.txt
+    printf "$JB_HEADER" > /var/local/jailbreak.txt
 
     log "Restarting scanner..." # Necessary for sh_integration
     sleep 2 # So they can read what's about to happen

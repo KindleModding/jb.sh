@@ -42,3 +42,13 @@ rm /mnt/us/documents/*.run_hotfix
 
 log "Setting up sh_integration"
 log "$(cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db)"
+NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
+if [ ! $NUM -eq 7 ]; then
+    log "Failed to setup sh_integration, trying again..."
+    sleep 1
+    log "$(cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db)"
+    NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
+    if [ ! $NUM -eq 7 ]; then
+        log "Failed to setup sh_integraion - please report to Hackerdude"
+    fi
+fi
