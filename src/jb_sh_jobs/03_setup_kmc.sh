@@ -37,8 +37,8 @@ chmod a+rx "/mnt/us/libkh/bin/fbink"
 # Since the links to these binaries are SOFT links, no additional copying/linking is required
 
 log "Deleting old hotfix"
-cat /var/local/kmc/sql/appreg_cleanup_hotfix.sql | sqlite3 /var/local/appreg.db
+log "$(cat /var/local/kmc/sql/appreg_cleanup_hotfix.sql | sqlite3 /var/local/appreg.db)"
 rm /mnt/us/documents/*.run_hotfix
 
 log "Setting up sh_integration"
-cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db
+log "$(cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db)"
