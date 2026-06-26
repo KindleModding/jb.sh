@@ -1,5 +1,5 @@
-mntroot ro
-mount -o exec /mnt/us # Remount as exec
+/bin/mount -o remount,ro /
+/bin/mount -o exec /mnt/us # Remount as exec
 log "Done"
 
 if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
@@ -15,7 +15,7 @@ if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
     sleep 2 # So they can read what's about to happen
     if [ -f "/etc/upstart/scanner.conf" ] ; then
         restart scanner
-        /usr/bin/xrefresh -d :0.0
+        restart kppmainapp
     elif [ -f "/etc/upstart/acxe.conf" ] ; then
         restart acxe & # On older devices restart the entire gui
         sleep 3 # Wait for it to stop
