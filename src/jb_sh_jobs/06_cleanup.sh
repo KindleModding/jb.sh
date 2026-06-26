@@ -13,9 +13,10 @@ if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
 
     log "Restarting scanner..." # Necessary for sh_integration
     sleep 2 # So they can read what's about to happen
-    if [ -f "/etc/upstart/scanner.conf" ] ; then
-        restart scanner
-        restart kppmainapp
+    if [ -f "/etc/upstart/kppmainapp.conf" ] ; then
+        restart scanner # For sh_integration
+        restart kppmainapp # For debug commands
+        restart pillow # Pillow handles the crash dialog so we can hide it by doing this
     elif [ -f "/etc/upstart/acxe.conf" ] ; then
         restart acxe & # On older devices restart the entire gui
         sleep 3 # Wait for it to stop
