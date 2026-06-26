@@ -17,6 +17,7 @@ if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
         restart scanner # For sh_integration
         restart kppmainapp # For debug commands
         restart pillow # Pillow handles the crash dialog so we can hide it by doing this
+        /usr/bin/xrefresh -d :0.0
     elif [ -f "/etc/upstart/acxe.conf" ] ; then
         restart acxe & # On older devices restart the entire gui
         sleep 3 # Wait for it to stop
