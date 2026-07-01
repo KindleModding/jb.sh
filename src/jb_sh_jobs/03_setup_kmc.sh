@@ -28,17 +28,20 @@ make_mutable /var/local/mkk
 ln -sf "/var/local/mkk/gandalf" "/var/local/mkk/su"
 make_immutable /var/local/mkk
 make_immutable /var/local/kmc
+# Since the links to these binaries are SOFT links, no additional copying/linking is required
 
 log "Installing libkh binaries"
 mkdir -p "/mnt/us/libkh/bin"
 rm -f /mnt/us/libkh/bin/fbink
 cp -f "/var/local/kmc/${PLATFORM}/bin/fbink" "/mnt/us/libkh/bin/fbink" # Yeah we do copying bc userstore is funky
 chmod a+rx "/mnt/us/libkh/bin/fbink"
-# Since the links to these binaries are SOFT links, no additional copying/linking is required
 
 log "Deleting old hotfix"
-log "$(cat /var/local/kmc/sql/appreg_cleanup_hotfix.sql | sqlite3 /var/local/appreg.db)"
 rm /mnt/us/documents/*.run_hotfix
+
+log "Setting up hotfix and emergency runners"
+log "$(cat /var/local/kmc/sql/appreg_register_hotfix.sql | sqlite3 /var/local/appreg.db)"
+log "$(cat /var/local/kmc/sql/appreg_register_emergency.sql | sqlite3 /var/local/appreg.db)"
 
 log "Setting up sh_integration"
 log "$(cat /var/local/kmc/sql/appreg_register_sh_integration.sql | sqlite3 /var/local/appreg.db)"
