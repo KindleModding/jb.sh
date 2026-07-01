@@ -1,0 +1,6 @@
+/subprojects/*/
+!/subprojects/*.wrap
+/builddir
+/builddir_kindlehf
+/builddir_kindlepw2
+.wraplock

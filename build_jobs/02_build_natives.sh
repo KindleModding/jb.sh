@@ -55,6 +55,22 @@ cd KPM
     done
 cd ..
 
+echo "Building KMC System Patcher"
+cd system_patcher
+    meson setup --cross-file ~/x-tools/arm-kindlehf-linux-gnueabihf/meson-crosscompile.txt builddir_kindlehf --reconfigure --buildtype=release > "$LOG"
+    meson setup --cross-file ~/x-tools/arm-kindlepw2-linux-gnueabi/meson-crosscompile.txt builddir_kindlepw2 --reconfigure --buildtype=release > "$LOG"
+
+    echo "- Building kindlehf"
+    meson compile -C builddir_kindlehf > "$LOG"
+    echo "- Building kindlepw2"
+    meson compile -C builddir_kindlepw2 > "$LOG"
+    echo "- Copying KPM"
+    for PLATFORM in kindlepw2 kindlehf
+    do
+        cp -f "builddir_${PLATFORM}/kmc_system_patcher" "../build/kmc/${PLATFORM}/bin/"
+    done
+cd ..
+
 echo "Building KindleTool"
 cd KindleTool
     make > "$LOG"
