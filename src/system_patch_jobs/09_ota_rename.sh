@@ -2,6 +2,10 @@
 
 log "Disabling OTA"
 
+stop ota-update
+stop otaupd
+stop otav3
+
 # Kill them asap
 killall otaupd -s -9
 killall otav3 -s -9
@@ -17,3 +21,11 @@ if [ -f "/usr/bin/otav3" ] ; then
     make_mutable /usr/bin/otav3
     mv /usr/bin/otav3 /usr/bin/otav3.bck
 fi
+
+stop ota-update
+stop otaupd
+stop otav3
+
+# Kill them asap
+killall otaupd -s -9
+killall otav3 -s -9
