@@ -13,6 +13,7 @@ cd sh_integration
     for PLATFORM in kindlepw2 kindlehf
     do
         cp -f "builddir_${PLATFORM}/extractor/sh_integration_extractor.so" "../build/kmc/${PLATFORM}/lib/"
+        ln -sf "/var/local/kms/sh_integration_extractor.so" "/usr/lib/ccat/sh_integration_extractor.so"
         cp -f "builddir_${PLATFORM}/launcher/sh_integration_launcher" "../build/kmc/${PLATFORM}/bin/"
     done
 cd ..
