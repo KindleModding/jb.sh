@@ -1,4 +1,5 @@
 #!/bin/sh
+# This will have to go, unless I can find some way to run code on boot
 
 # Check if we need to do something with the KMC job
 if [ -f "/var/local/kmc/system_patches/kmc.conf" ] ; then

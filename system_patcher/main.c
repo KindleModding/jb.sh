@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include "cjson/cJSON.h"
 
+// Instead of modifying json files directly, modify in ram.
+// After modifying in ram, bind mount the directories in question (see bind mount helper function)
 int main(int argc, char* argv[])
 {
     char* filepaths[] = {

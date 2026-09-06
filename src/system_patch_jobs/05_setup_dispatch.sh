@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Todo: turn this whole thing into a bind mount, should be ezpz
 log "Copying dispatch (logThis) script"
 make_mutable "/usr/bin/logThis.sh"
 rm -rf "/usr/bin/logThis.sh"

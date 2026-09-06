@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# This can probably just be turned into a bind mount
 log "Patching factory reset script"
 
 if [ ! -f /usr/sbin/factory_reset.bck ]; then

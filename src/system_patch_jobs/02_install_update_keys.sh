@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Again, unless I can find some way to make the bind mount work on boot, this will have to go.
 install_touch_update_key()
 {
 	log "Copying the jailbreak updater key"
