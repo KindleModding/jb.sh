@@ -19,10 +19,21 @@ else
     ota_block_file="/mnt/us/update.bin.tmp.partial"
 fi
 
+check_mount()
+    if [ ! "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then
+        return 0
+    fi
+
+    if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "/var/local/kmc/block_ota /mnt/us/update.bin.tmp.partial"; then
+        return 1
+    else
+        return 0
+    fi
+
 check_ota_block_file() {
     if [ ! -f "${ota_block_file}" ]; then
         return 1 # File doesn't exist
-    elif ! check_immutable "${ota_block_file}"; then
+    elif ! check_immutable "${ota_block_file}" || ! check_mount; then 
         return 2 # File isn't immutable (probably evil)
     elif [ $(md5sum "${ota_block_file}" | cut -d' ' -f1) != "${ota_block_file_message_hash}" ]; then
         return 3 # Invalid hash (probably evil)
@@ -32,7 +43,7 @@ check_ota_block_file() {
 }
 
 write_ota_block_file() {
-    if [ ${ota_block_file} == "/mnt/us/update.bin.tmp.partial" ]; then # can't use chattr on a FUSE mount, so we have to do some huge trolling
+    if [ "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then # can't use chattr on a FUSE mount, so we have to do some huge trolling
         log "Writing OTA block file to ${ota_block_file}"
         check_ota_block_file
         post_write_ota_block_status=$?
