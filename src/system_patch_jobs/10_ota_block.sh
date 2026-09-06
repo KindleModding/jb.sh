@@ -40,6 +40,8 @@ write_ota_block_file() {
             log "Update file detected, removing"
             rm -f "${ota_block_file}"
         fi
+        touch "${ota_block_file}"
+        make_immutable "/var/local/kmc/block_ota"
         if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "/var/local/kmc/block_ota /mnt/us/update.bin.tmp.partial"; then
             /bin/mount -o bind "/var/local/kmc/block_ota" "/mnt/us/update.bin.tmp.partial" # https://youtu.be/k0X71gtCBh8?t=14
         fi
