@@ -20,9 +20,9 @@ else
 fi
 
 check_mount() {
-    [ "${ota_block_file}" != "/mnt/us/update.bin.tmp.partial" ] && return 0
+    [ "${ota_block_file}" != "/mnt/us/update.bin.tmp.partial" ] && return 0 # Return 0 if this is somehow called while the OTA block file is mntus
 
-    if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "/var/local/kmc/block_ota /mnt/us/update.bin.tmp.partial"; then
+    if ! cut -d' ' -f5 /proc/self/mountinfo | grep -xq "/mnt/us/update.bin.tmp.partial"; then
         return 1
     else
         return 0
@@ -31,14 +31,15 @@ check_mount() {
 
 check_ota_block_file() {
     if [ ! -f "${ota_block_file}" ]; then
-        return 1 # File doesn't exist
-    elif ! check_immutable "${ota_block_file}" || ! check_mount; then 
-        return 2 # File isn't immutable (probably evil)
-    elif [ $(md5sum "${ota_block_file}" | cut -d' ' -f1) != "${ota_block_file_message_hash}" ]; then
-        return 3 # Invalid hash (probably evil)
-    else
-        return 0 # Everything is chill
+        return 1
+    fi  # File disappeared somehow, bad.
+    if [ "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then # We have to check each file in different ways, because you can't use lsattr on a fuse mount.
+        check_mount || return 2 # Not mounted, bad.
+    elif [ "${ota_block_file}" == "/mnt/userstore/update.bin.tmp.partial" ]; then
+        check_immutable "${ota_block_file}" || return 2 # File mutable, bad.
     fi
+    [ "$(md5sum "${ota_block_file}" | cut -d' ' -f1)" != "${ota_block_file_message_hash}" ] && return 3 # If the other two didn't return anything bad, run this.
+    return 0
 }
 
 write_ota_block_file() {
@@ -52,7 +53,7 @@ write_ota_block_file() {
         fi
         touch "${ota_block_file}"
         make_immutable "/var/local/kmc/block_ota"
-        if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "/var/local/kmc/block_ota /mnt/us/update.bin.tmp.partial"; then
+        if ! cut -d' ' -f5 /proc/self/mountinfo | grep -xq "/mnt/us/update.bin.tmp.partial"; then
             /bin/mount -o bind "/var/local/kmc/block_ota" "/mnt/us/update.bin.tmp.partial" # https://youtu.be/k0X71gtCBh8?t=14
         fi
     else
@@ -66,8 +67,6 @@ write_ota_block_file() {
     fi
 }
 
-log "Stopping OTA"
-
 stop ota-update
 stop otaupd
 stop otav3
@@ -79,7 +78,7 @@ killall otav3 -s SIGKILL s
 log "Blocking OTA"
 
 if check_ota_block_file; then
-    logmsg I setup_ota_blocking "" "OTA Blocking already in place"
+    log "OTA Blocking already in place"
 else
     write_ota_block_file # Install the blocking file
     # Check our work
