@@ -114,3 +114,8 @@ make_immutable() {
         ${CHATTR} +i "${my_path}"
     fi
 }
+
+# Returns 0 (true) if immutable bit is set, 1 (false) if not (or if file doesn't exist)
+check_immutable() {
+    ${CHATTR} "$1" | cut -d' ' -f1 | grep -q 'i'
+}
