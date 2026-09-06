@@ -17,6 +17,7 @@ if [ -d /mnt/userstore ]; then
     ota_block_file="/mnt/userstore/update.bin.tmp.partial"
 else
     ota_block_file="/mnt/us/update.bin.tmp.partial"
+fi
 
 check_ota_block_file() {
     if [ ! -f "${ota_block_file}" ]; then
@@ -38,6 +39,7 @@ write_ota_block_file() {
         if [ $post_write_ota_block_status -eq 3 ]; then
             log "Update file detected, removing"
             rm -f "${ota_block_file}"
+        fi
         touch "${ota_block_file}"
         if [ -f "/var/local/kmc/block_ota" ]; then
             make_mutable "/var/local/kmc/block_ota"
