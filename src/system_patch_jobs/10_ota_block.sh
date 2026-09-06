@@ -45,9 +45,7 @@ check_ota_block_file() {
 write_ota_block_file() {
     if [ "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then # can't use chattr on a FUSE mount, so we have to do some huge trolling
         log "Writing OTA block file to ${ota_block_file}"
-        check_ota_block_file
-        post_write_ota_block_status=$?
-        if [ $post_write_ota_block_status -eq 3 ]; then
+        if [ ! "$(md5sum "${ota_block_file}" | cut -d' ' -f1)" != "${ota_block_file_message_hash}" ]; then # all we really care about rn is the hash
             log "Update file detected, removing"
             rm -f "${ota_block_file}"
         fi
