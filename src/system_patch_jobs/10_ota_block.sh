@@ -19,16 +19,15 @@ else
     ota_block_file="/mnt/us/update.bin.tmp.partial"
 fi
 
-check_mount()
-    if [ ! "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then
-        return 0
-    fi
+check_mount() {
+    [ "${ota_block_file}" != "/mnt/us/update.bin.tmp.partial" ] && return 0
 
     if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "/var/local/kmc/block_ota /mnt/us/update.bin.tmp.partial"; then
         return 1
     else
         return 0
     fi
+}
 
 check_ota_block_file() {
     if [ ! -f "${ota_block_file}" ]; then
