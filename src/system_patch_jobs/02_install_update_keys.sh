@@ -1,20 +1,20 @@
 #!/bin/sh
 
 if [ $ROOTLESS -eq 0 ]; then
-	# Again, unless I can find some way to make the bind mount work on boot, this will have to go.
+# Again, unless I can find some way to make the bind mount work on boot, this will have to go.
 	install_touch_update_key()
 	{
 		log "Copying the jailbreak updater key"
 		make_mutable "/etc/uks/pubdevkey01.pem"
 		rm -rf "/etc/uks/pubdevkey01.pem"
-		cat > "/etc/uks/pubdevkey01.pem" << EOF
-	-----BEGIN PUBLIC KEY-----
-	MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJn1jWU+xxVv/eRKfCPR9e47lP
-	WN2rH33z9QbfnqmCxBRLP6mMjGy6APyycQXg3nPi5fcb75alZo+Oh012HpMe9Lnp
-	eEgloIdm1E4LOsyrz4kttQtGRlzCErmBGt6+cAVEV86y2phOJ3mLk0Ek9UQXbIUf
-	rvyJnS2MKLG2cczjlQIDAQAB
-	-----END PUBLIC KEY-----
-	EOF
+	cat > "/etc/uks/pubdevkey01.pem" << EOF # do not indent this or the world will end
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDJn1jWU+xxVv/eRKfCPR9e47lP
+WN2rH33z9QbfnqmCxBRLP6mMjGy6APyycQXg3nPi5fcb75alZo+Oh012HpMe9Lnp
+eEgloIdm1E4LOsyrz4kttQtGRlzCErmBGt6+cAVEV86y2phOJ3mLk0Ek9UQXbIUf
+rvyJnS2MKLG2cczjlQIDAQAB
+-----END PUBLIC KEY-----
+EOF
 		# Harmonize permissions
 		chown root:root "/etc/uks/pubdevkey01.pem"
 		chmod 0644 "/etc/uks/pubdevkey01.pem"
