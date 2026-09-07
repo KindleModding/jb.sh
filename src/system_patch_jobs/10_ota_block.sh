@@ -51,9 +51,8 @@ write_ota_block_file() {
         fi
         touch "${ota_block_file}"
         make_immutable "/var/local/kmc/block_ota"
-        if ! cut -d' ' -f5 /proc/self/mountinfo | grep -xq "/mnt/us/update.bin.tmp.partial"; then
-            /bin/mount -o bind "/var/local/kmc/block_ota" "/mnt/us/update.bin.tmp.partial" # https://youtu.be/k0X71gtCBh8?t=14
-        fi
+        /bin/umount "${ota_block_file}" # we HAVE to do this in case we're unpacking the new kmc/block_ota over an OLD kmc/block_ota, in which case the bind mount will resolve to an empty file
+        /bin/mount -o bind "/var/local/kmc/block_ota" "/mnt/us/update.bin.tmp.partial" # https://youtu.be/k0X71gtCBh8?t=14
     else
         log "Writing OTA block file to ${ota_block_file}"
         if [ -f "${ota_block_file}" ]; then
@@ -85,6 +84,6 @@ else
     if [ $post_write_ota_block_status -eq 0 ]; then
         log "OTA blocking file written successfully"
     else
-        log "WRITING OTA BLOCK FILE FAILED SOMEHOW. YOUR JAILBREAK MAY BE AT RISK"
+        log "WRITING OTA BLOCK FILE FAILED WITH ERROR CODE ${post_write_ota_block_status}. YOUR JAILBREAK MAY BE AT RISK"
     fi
 fi
