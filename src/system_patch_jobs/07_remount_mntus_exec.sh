@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# todo: check that this actually works lol
 # check if we are already exec or not
 if grep ' /mnt/us ' /proc/self/mountinfo | grep -q noexec; then
     /usr/bin/fuser -km /mnt/us # kill everything touching /mnt/us, this force restarts framework so idk maybe change this

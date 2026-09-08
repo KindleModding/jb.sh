@@ -117,5 +117,26 @@ make_immutable() {
 
 # Returns 0 (true) if immutable bit is set, 1 (false) if not (or if file doesn't exist)
 check_immutable() {
-    ${CHATTR} "$1" | cut -d' ' -f1 | grep -q 'i'
+    lsattr.e2fsprogs "$1" | cut -d' ' -f1 | grep -q 'i'
+}
+
+# Setup Bind Mount - sets up a bind mount for a file/directory (likely on rootfs)
+# by making a temporary file/directory in EARLYBIRD_BINDS_PATH at a corresponding path
+# Outputs the path to the temporary file/directory
+
+setup_bind_mount() {
+    local overridden_path="$(realpath "${1}")"
+    local bind_path="/var/local/kmc/binds${overridden_path}"
+    local bind_parent_path="$(dirname "${bind_path}")"
+    # if it doesn't already exist, we need to make it
+    if [ ! -e "${bind_path}" ]; then
+        mkdir -p "${bind_parent_path}"
+        # straight up copy everything, will work for both dirs and files
+        cp -a "${overridden_path}" "${bind_parent_path}"
+    fi
+    # Check to make sure we aren't already mounted. Yes this is sinful as fuck. I'm sorry.
+    if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "${bind_path} ${overridden_path}"; then
+        mount -o bind "${bind_path}" "${overridden_path}"
+    fi
+    echo "${bind_path}"
 }
