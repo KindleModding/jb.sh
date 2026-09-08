@@ -4,14 +4,10 @@
 #include <unistd.h>
 #include "cjson/cJSON.h"
 
-// Instead of modifying json files directly, modify in ram.
-// After modifying in ram, bind mount the directories in question (see bind mount helper function)
 int main(int argc, char* argv[])
 {
     char* filepaths[] = {
-        "/app/kpp_app_cmds.json",
-        "/usr/share/app/kpp_sys_cmds.json",
-        "/usr/share/webkit-1.0/pillow/debug_cmds.json",
+        "/usr/share/app/kpp_sys_cmds.json", // only do this one now lol
         NULL
     };
 
