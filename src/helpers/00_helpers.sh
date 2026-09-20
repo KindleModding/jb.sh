@@ -124,19 +124,20 @@ check_immutable() {
 # by making a temporary file/directory in EARLYBIRD_BINDS_PATH at a corresponding path
 # Outputs the path to the temporary file/directory
 
+MAX_COPY_SIZE=4096 # Max size (in KB) to copy to /var/local/kmc/binds for bind mounts
 setup_bind_mount() {
     local overridden_path="$(realpath "${1}")"
     local bind_path="/var/local/kmc/binds${overridden_path}"
     local bind_parent_path="$(dirname "${bind_path}")"
     # if it doesn't already exist, we need to make it
     if [ ! -e "${bind_path}" ]; then
-        mkdir -p "${bind_parent_path}"
+        mkdir -p "${bind_parent_path}" || return 1
         # straight up copy everything, will work for both dirs and files
-        cp -a "${overridden_path}" "${bind_parent_path}"
+        cp -a "${overridden_path}" "${bind_parent_path}" || return 1
     fi
     # Check to make sure we aren't already mounted. Yes this is sinful as fuck. I'm sorry.
     if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "${bind_path} ${overridden_path}"; then
-        mount -o bind "${bind_path}" "${overridden_path}"
+        mount -o bind "${bind_path}" "${overridden_path}" || return 1
     fi
     echo "${bind_path}"
 }
