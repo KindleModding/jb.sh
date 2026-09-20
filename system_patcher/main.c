@@ -7,7 +7,9 @@
 int main(int argc, char* argv[])
 {
     char* filepaths[] = {
-        "/usr/share/app/kpp_sys_cmds.json", // only do this one now lol
+        "/app/kpp_app_cmds.json",
+        "/usr/share/app/kpp_sys_cmds.json",
+        "/usr/share/webkit-1.0/pillow/debug_cmds.json",
         NULL
     };
 
