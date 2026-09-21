@@ -3,7 +3,7 @@
 if [ -d "/usr/lib/ccat" ]; then
     log "/usr/lib/ccat detected, patching sh_integration extractor into system"
 
-    make_mutable /usr/lib/ccat/
+    setup_bind_mount /usr/lib/ccat
     make_mutable /usr/lib/ccat/sh_integration_extractor.so
     cp -af /var/local/kmc/lib/sh_integration_extractor.so /usr/lib/ccat/sh_integration_extractor.so
     make_immutable /usr/lib/ccat/sh_integration_extractor.so
