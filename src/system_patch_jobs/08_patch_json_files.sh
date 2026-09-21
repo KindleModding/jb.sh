@@ -3,6 +3,7 @@ command_jsons="/app/kpp_app_cmds.json /usr/share/app/kpp_sys_cmds.json /usr/shar
 patch_bin="/var/local/kmc/bin/kmc_system_patcher"
 
 for filepath in $command_jsons; do
+    make_mutable $filepath
     if [ ! -f "$filepath" ]; then
         log "$filepath does not exist, skipping"
         continue
@@ -19,4 +20,5 @@ for filepath in $command_jsons; do
         fi
     fi
     log "$($patch_bin "$filepath")"
+    make_immutable $filepath
 done
