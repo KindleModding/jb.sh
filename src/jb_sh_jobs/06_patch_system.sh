@@ -20,10 +20,5 @@ fi
 
 # Run system patch script (what was once the hotfix)
 
-# Detect rootless Kindle
-if [ $ROOTLESS -eq 0 ]; then
-	log "Running system patch script"
-	ROOTLESS=$ROOTLESS RUN_MODE=$RUN_MODE JAILBROKEN=$JAILBROKEN sh /var/local/kmc/system_patches/patch_system.sh # Run it directly since jb.sh MUST be run as root
-else
-	log "Running on rootless system with dmverity, skipping system patches"
-fi
+log "Running system patch script"
+ROOTLESS=$ROOTLESS RUN_MODE=$RUN_MODE JAILBROKEN=$JAILBROKEN sh /var/local kmc/system_patches/patch_system.sh # Run it directly since jb.sh MUST be run as root
