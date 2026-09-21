@@ -3,11 +3,11 @@ command_jsons="/app/kpp_app_cmds.json /usr/share/app/kpp_sys_cmds.json /usr/shar
 patch_bin="/var/local/kmc/bin/kmc_system_patcher"
 
 for filepath in $command_jsons; do
-    make_mutable $filepath
     if [ ! -f "$filepath" ]; then
         log "$filepath does not exist, skipping"
         continue
     fi
+    make_mutable $filepath
     if [ $ROOTLESS -eq 1 ]; then
         file_size=$(du -sk "$filepath" | cut -f1)
         if [ "$file_size" -gt "$MAX_COPY_SIZE" ]; then # if this somehow happens, we have bigger things to worry about
