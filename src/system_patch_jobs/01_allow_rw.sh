@@ -17,3 +17,6 @@ if [ $ROOTLESS -eq 0 ]; then
         fi
     fi
 fi
+
+make_mutable /var/local/kmc
+log "Made /var/local/kmc mutable"
