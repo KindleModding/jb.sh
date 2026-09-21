@@ -5,5 +5,4 @@ if [ "$(md5sum "/opt/amazon/ebook/lib/json_simple-1.1.jar" | cut -d' ' -f1)" != 
 	log "Copying the kindlet jailbreak"
 	setup_bind_mount /opt/amazon/ebook/lib/json_simple-1.1.jar
 	cp -f "/var/local/kmc/system_patches/json_simple-1.1.jar" "/var/local/kmc/binds/opt/amazon/ebook/lib/json_simple-1.1.jar"
-	chmod 0664 "/opt/amazon/ebook/lib/json_simple-1.1.jar"
 fi
