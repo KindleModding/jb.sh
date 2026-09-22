@@ -124,7 +124,7 @@ check_immutable() {
 # by making a temporary file/directory in EARLYBIRD_BINDS_PATH at a corresponding path
 # Outputs the path to the temporary file/directory
 
-MAX_COPY_SIZE=4096 # Max size (in KB) to copy to /var/local/kmc/binds for bind mounts
+MAX_COPY_SIZE=5192 # Max size (in KB) to copy to /var/local/kmc/binds for bind mounts
 setup_bind_mount() {
     local overridden_path="$(realpath "${1}")"
     local bind_path="/var/local/kmc/binds${overridden_path}"
