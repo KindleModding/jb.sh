@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
             cJSON_DeleteItemFromObject(json, ";kmclog");
 
         cJSON_AddItemToObject(json, ";kpm", cJSON_CreateString("/var/local/kmc/sbin/kpm.sh"));
-        cJSON_AddItemToObject(json, ";log", cJSON_CreateString("/var/local/kmc/logThis.sh"));
+        cJSON_AddItemToObject(json, ";log", cJSON_CreateString("/var/local/kmc/sbin/logThis.sh"));
         cJSON_AddItemToObject(json, ";kmclog", cJSON_CreateString("/var/local/kmc/sbin/kmclog.sh"));
         
         char* patched_json = cJSON_Print(json);
