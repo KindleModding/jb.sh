@@ -131,13 +131,14 @@ setup_bind_mount() {
     local bind_parent_path="$(dirname "${bind_path}")"
     # if it doesn't already exist, we need to make it
     if [ ! -e "${bind_path}" ]; then
-        mkdir -p "${bind_parent_path}" || return 1
+        mkdir -p "${bind_parent_path}"
         # straight up copy everything, will work for both dirs and files
-        cp -a "${overridden_path}" "${bind_parent_path}" || return 1
+        cp -a "${overridden_path}" "${bind_parent_path}"
     fi
     # Check to make sure we aren't already mounted. Yes this is sinful as fuck. I'm sorry.
-    if ! cut -d' ' -f4,5 /proc/self/mountinfo | grep -xq "${bind_path} ${overridden_path}"; then
-        mount -o bind "${bind_path}" "${overridden_path}" || return 1
+    if cut -d' ' -f5 /proc/self/mountinfo | grep -xq "${overridden_path}"; then
+        umount "${overridden_path}" # Necessary because of potential stale mounts when rerunning jb.sh
     fi
+    mount -o bind "${bind_path}" "${overridden_path}"
     echo "${bind_path}"
 }
