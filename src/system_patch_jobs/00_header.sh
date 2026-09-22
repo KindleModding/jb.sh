@@ -17,3 +17,4 @@ fi
 log ""
 log "P:$RUN_MODE:$JAILBROKEN:$ROOTLESS:$PLATFORM"
 log ""
+set -x
