@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 if ! /bin/mount -o remount,rw /; then
     log "Failed to remount as rw, trying again"
     sleep 1

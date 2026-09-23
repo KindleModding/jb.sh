@@ -43,6 +43,11 @@ log "Setting up hotfix and emergency runners"
 log "$(cat /var/local/kmc/sql/appreg_register_hotfix.sql | sqlite3 /var/local/appreg.db)"
 log "$(cat /var/local/kmc/sql/appreg_register_emergency.sql | sqlite3 /var/local/appreg.db)"
 
+if [ $ROOTLESS -eq 1 ]; then
+    log "Setting up rootless persistence patch"
+    log "$(cat /var/local/kmc/sql/appreg_register_rootless_persist.sql | sqlite3 /var/local/appreg.db)"
+fi
+
 if [ ! -d "/usr/lib/ccat" ]; then
     log "Setting up sh_integration"
     log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_common.sql | sqlite3 /var/local/appreg.db)"
