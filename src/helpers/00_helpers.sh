@@ -60,6 +60,9 @@ if cat /proc/cmdline | grep androidboot.veritymode; then
     ROOTLESS=1
 fi
 
+if [ -z "$MANPATCH" ]; then
+    MANPATCH=0 # passed by rootless_menu.sh when 1
+fi
 
 POS=1
 log() {
@@ -137,7 +140,7 @@ setup_bind_mount() {
     fi
     # Check to make sure we aren't already mounted. Yes this is sinful as fuck. I'm sorry.
     if cut -d' ' -f5 /proc/self/mountinfo | grep -xq "${overridden_path}"; then
-        umount "${overridden_path}" # Necessary because of potential stale mounts when rerunning jb.sh
+        umount "${overridden_path}" # Necessary because of potential stale mounts when MANPATCHning jb.sh
     fi
     mount -o bind "${bind_path}" "${overridden_path}"
     echo "${bind_path}"

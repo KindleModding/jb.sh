@@ -1,10 +1,6 @@
 #!/bin/sh
 
-if [ -z "$RERUN" ]; then
-    RERUN=0 # passed by rootless_menu.sh when 1
-fi
-
-if [ $RERUN -eq 1 ]; then # This is set in kmc/rootless_menu.sh, and is only ran when the user manually reruns it using "Get Started" in settings, on a rootless device
+if [ $MANPATCH -eq 1 ]; then # This is set in kmc/rootless_menu.sh, and is only ran when the user manually MANPATCHs it using "Get Started" in settings, on a rootless device
     log "Restarting GUI..." # Necessary for sh_integration
     sleep 2 # So they can read what's about to happen
     lipc-set-prop com.lab126.appmgrd start app://com.lab126.booklet.home
