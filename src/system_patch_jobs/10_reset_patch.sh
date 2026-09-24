@@ -24,3 +24,5 @@ echo "    sh /var/local/kmc/sbin/kmc_reset.sh" >> /usr/sbin/factory_reset
 echo "fi" >> /usr/sbin/factory_reset
 echo "" >> /usr/sbin/factory_reset
 cat /usr/sbin/factory_reset.bck >> /usr/sbin/factory_reset
+
+make_immutable /var/local/kmc
