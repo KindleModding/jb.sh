@@ -3,9 +3,11 @@ log "Setting KMC permissions"
 chmod -R a+rx /var/local/kmc/sbin/*
 chmod -R a+rx /var/local/kmc/kindlepw2/*
 chmod -R a+rx /var/local/kmc/kindlehf/*
-chmod 0664 /var/local/kmc/system_patches/kmc.conf
+chmod 0664 /var/local/kmc/system_patches/emergency.conf
+chmod 0664 /var/local/kmc/system_patches/run_patch.conf
 chmod a+rx /var/local/kmc/system_patches/patch_system.sh
 chmod a+rx /var/local/kmc/system_patches/run_patch.sh
+chmod a+rx /var/local/kmc/rootless_menu.sh
 
 log "Setting KMC gandalf permissions"
 for gandalf_platform in kindlepw2 kindlehf; do
