@@ -126,6 +126,7 @@ check_immutable() {
 # Setup Bind Mount - sets up a bind mount for a file/directory (likely on rootfs)
 # by making a temporary file/directory in EARLYBIRD_BINDS_PATH at a corresponding path
 # Outputs the path to the temporary file/directory
+# Credit to scam.net for this function
 
 MAX_COPY_SIZE=5192 # Max size (in KB) to copy to /var/local/kmc/binds for bind mounts
 setup_bind_mount() {

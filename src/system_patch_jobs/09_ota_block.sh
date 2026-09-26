@@ -1,5 +1,5 @@
 #!/bin/sh
-
+# Credit to scam.net for a large portion of this file
 log "Stopping OTA"
 
 stop ota-update
