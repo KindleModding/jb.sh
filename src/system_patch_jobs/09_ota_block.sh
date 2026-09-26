@@ -10,6 +10,20 @@ stop otav3
 killall otaupd -s SIGKILL s
 killall otav3 -s SIGKILL s
 
+# If the binaries were renamed with the old method, restore them.
+if [ $ROOTLESS -eq 0 ]; then
+    if [ -f /usr/bin/otaupd.bck ]; then
+        log "Restoring previously renamed OTA binaries"
+        make_mutable /usr/bin/otaupd.bck
+        mv /usr/bin/otaupd.bck /usr/bin/otaupd
+    fi
+
+    if [ -f /usr/bin/otav3.bck ]; then
+        make_mutable /usr/bin/otav3.bck
+        mv /usr/bin/otav3.bck /usr/bin/otav3
+    fi
+fi
+
 ota_block_file_message="DO NOT REMOVE - OTA Update Blocker"
 ota_block_file_message_hash="aa3b1f5cc508e957f26de725c4b8a46a"
 
