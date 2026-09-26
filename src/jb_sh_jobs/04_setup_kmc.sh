@@ -8,6 +8,7 @@ chmod 0664 /var/local/kmc/system_patches/run_patch.conf
 chmod a+rx /var/local/kmc/system_patches/patch_system.sh
 chmod a+rx /var/local/kmc/system_patches/run_patch.sh
 chmod a+rx /var/local/kmc/rootless_menu.sh
+chmod 444 /var/local/kmc/block_ota
 
 log "Setting KMC gandalf permissions"
 for gandalf_platform in kindlepw2 kindlehf; do
