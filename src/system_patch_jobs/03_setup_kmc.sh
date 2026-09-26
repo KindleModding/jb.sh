@@ -12,13 +12,17 @@ if [ -d "/usr/lib/ccat" ]; then
     log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_common.sql | sqlite3 /var/local/appreg.db)"
     log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_2.sql | sqlite3 /var/local/appreg.db)"
     NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
-    if [ ! $NUM -eq 7 ]; then
+    if [ $NUM -eq 7 ]; then
+        log "sh_integration successfully setup!"
+    else
         log "Failed to setup sh_integration, trying again..."
         sleep 1
         log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_common.sql | sqlite3 /var/local/appreg.db)"
         log "$(cat /var/local/kmc/sql/appreg_register_sh_integration_2.sql | sqlite3 /var/local/appreg.db)"
         NUM=$(echo "SELECT * FROM properties WHERE handlerId='tech.hackerdude.shell_integration.extractor'" | sqlite3 /var/local/appreg.db --line | wc -l)
-        if [ ! $NUM -eq 7 ]; then
+        if [ $NUM -eq 7 ]; then
+            log "sh_integration successfully setup!"
+        else
             log "Failed to setup sh_integraion - please report to Hackerdude"
         fi
     fi
