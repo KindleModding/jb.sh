@@ -43,7 +43,7 @@ check_ota_block_file() {
 }
 
 write_ota_block_file() {
-    if [ "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then # can't use chattr on a FUSE mount, so we have to do some huge trolling
+    if [ "${ota_block_file}" == "/mnt/us/update.bin.tmp.partial" ]; then
         log "Writing OTA block file to ${ota_block_file}"
         if [ ! "$(md5sum "${ota_block_file}" | cut -d' ' -f1)" != "${ota_block_file_message_hash}" ]; then # all we really care about rn is the hash
             log "Update file detected, removing"
@@ -52,7 +52,7 @@ write_ota_block_file() {
         touch "${ota_block_file}"
         make_immutable "/var/local/kmc/block_ota"
         /bin/umount "${ota_block_file}" # we HAVE to do this in case we're unpacking the new kmc/block_ota over an OLD kmc/block_ota, in which case the bind mount will resolve to an empty file
-        /bin/mount -o bind "/var/local/kmc/block_ota" "/mnt/us/update.bin.tmp.partial" # https://youtu.be/k0X71gtCBh8?t=14
+        /bin/mount -o bind "/var/local/kmc/block_ota" "/mnt/us/update.bin.tmp.partial"
     else
         log "Writing OTA block file to ${ota_block_file}"
         if [ -f "${ota_block_file}" ]; then

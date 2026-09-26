@@ -1,5 +1,4 @@
 #!/bin/sh
-# Todo: turn lines 6-9 into a bind-mount instead of modifying rootfs, should be easy enough.
 if [ -d "/usr/lib/ccat" ]; then
     log "/usr/lib/ccat detected, patching sh_integration extractor into system"
 
