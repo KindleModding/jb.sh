@@ -17,6 +17,19 @@ if [ $ROOTLESS -eq 0 ]; then
     fi # not necessary on rootless systems
 fi
 
+# So no one runs a rogue scriptlet and immediately kills their device:
+if [ $ROOTLESS -eq 1 ]; then
+    mv /usr/sbin/mntroot /usr/sbin/mntroot.bak
+
+        cat << 'EOF' > /usr/sbin/mntroot
+#!/bin/sh
+echo "Sorry, you cannot do this on a rootless device."
+exit 1
+EOF
+
+    chmod +x /usr/sbin/mntroot
+fi
+
 echo "#!/bin/sh" > /usr/sbin/factory_reset
 echo "" >> /usr/sbin/factory_reset
 echo "if [ -f /var/local/kmc/sbin/kmc_reset.sh ]; then" >> /usr/sbin/factory_reset
