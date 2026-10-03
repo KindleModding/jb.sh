@@ -1,6 +1,4 @@
-/bin/mount -o remount,ro /
-/bin/mount -o exec /mnt/us # Remount as exec
-log "Done"
+#!/bin/sh
 
 if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
     printf "You are jailbroken!\n" > /mnt/us/documents/JAILBROKEN.txt

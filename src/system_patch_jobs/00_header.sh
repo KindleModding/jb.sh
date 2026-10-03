@@ -17,3 +17,7 @@ fi
 log ""
 log "P:$RUN_MODE:$JAILBROKEN:$ROOTLESS:$PLATFORM"
 log ""
+
+if [ -z "$RERUN" ]; then
+    RERUN=0 # passed by rootless_menu.sh when 1
+fi
