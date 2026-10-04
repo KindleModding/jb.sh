@@ -123,6 +123,27 @@ check_immutable() {
     lsattr.e2fsprogs "$1" | cut -d' ' -f1 | grep -q 'i'
 }
 
+destroy_otas() {
+    stop ota-update
+    stop otaupd
+    stop otav3
+
+    # Kill them asap
+    killall otaupd -s SIGKILL s
+    killall otav3 -s SIGKILL s
+
+    # Thanks scam.net for new paths
+    rm -rf /mnt/us/*.tmp.partial
+    rm -rf /mnt/us/*.bin
+    rm -rf /mnt/us/*.bin.tmp
+    rm -rf /mnt/base-us/*.tmp.partial
+    rm -rf /mnt/base-us/*.bin
+    rm -rf /mnt/base-us/*.bin.tmp
+    rm -rf /mnt/userstore/*.tmp.partial
+    rm -rf /mnt/userstore/*.bin
+    rm -rf /mnt/userstore/*.bin.tmp
+}
+
 # Setup Bind Mount - sets up a bind mount for a file/directory (likely on rootfs)
 # by making a temporary file/directory in EARLYBIRD_BINDS_PATH at a corresponding path
 # Outputs the path to the temporary file/directory
