@@ -31,5 +31,4 @@ if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
     /var/local/kmc/bin/fbink -y 16 -p -S 3 "(Kindles are slow lol)  "
     /var/local/kmc/bin/fbink -y -6 -m -S 4 "(Error dialog is fine)"
     /var/local/kmc/bin/fbink -y -5 -m -S 4 "(Just press close and keep waiting!)"
-    
 fi

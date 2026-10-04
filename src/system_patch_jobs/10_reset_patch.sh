@@ -1,35 +1,16 @@
 #!/bin/sh
-# This can probably just be turned into a bind mount
-log "Patching factory reset script"
 
 if [ $ROOTLESS -eq 1 ]; then
-    dir_size=$(du -sk "/usr/sbin" | cut -f1)
-    if [ "$dir_size" -gt "$MAX_COPY_SIZE" ]; then
-        log "/usr/sbin is too large to patch the factory reset script, skipping." # usually 3.5mb, so our 5mb limit should be fine here
-        continue
+    setup_bind_mount /usr/sbin # patching mntroot is too important to skip patching it on rootless systems, so no size check here
+    # So no one runs a rogue scriptlet and immediately kills their device:
+    if [ -f /usr/sbin/mntroot ]; then
+        ln -sf /dev/null /usr/sbin/mntroot
+        log "mntroot patched to /dev/null"
     fi
-    setup_bind_mount /usr/sbin
 fi
 
-if [ $ROOTLESS -eq 0 ]; then
-    if [ ! -f /usr/sbin/factory_reset.bck ]; then
-        cp /usr/sbin/factory_reset /usr/sbin/factory_reset.bck
-    fi # not necessary on rootless systems
-fi
-
-# So no one runs a rogue scriptlet and immediately kills their device:
-if [ $ROOTLESS -eq 1 ]; then
-    mv /usr/sbin/mntroot /usr/sbin/mntroot.bak
-
-        cat << 'EOF' > /usr/sbin/mntroot
-#!/bin/sh
-echo "Sorry, you cannot do this on a rootless device."
-exit 1
-EOF
-
-    chmod +x /usr/sbin/mntroot
-fi
-
+log "Patching factory reset script"
+cp /usr/sbin/factory_reset /usr/sbin/factory_reset.bck
 echo "#!/bin/sh" > /usr/sbin/factory_reset
 echo "" >> /usr/sbin/factory_reset
 echo "if [ -f /var/local/kmc/sbin/kmc_reset.sh ]; then" >> /usr/sbin/factory_reset
@@ -37,5 +18,6 @@ echo "    sh /var/local/kmc/sbin/kmc_reset.sh" >> /usr/sbin/factory_reset
 echo "fi" >> /usr/sbin/factory_reset
 echo "" >> /usr/sbin/factory_reset
 cat /usr/sbin/factory_reset.bck >> /usr/sbin/factory_reset
+
 
 make_immutable /var/local/kmc
