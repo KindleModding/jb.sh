@@ -8,8 +8,4 @@ if [ -f /lib/ld-linux-armhf.so.3 ]; then
     PLATFORM="kindlehf"
 fi
 
-if [ -z "$MANPATCH" ]; then
-    MANPATCH=0 # passed by rootless_menu.sh
-fi
-
-MANPATCH=$MANPATCH /var/local/kmc/${PLATFORM}/bin/su -c "sh /var/local/kmc/system_patches/patch_system.sh"
+/var/local/kmc/${PLATFORM}/bin/su -c "sh /var/local/kmc/system_patches/patch_system.sh"

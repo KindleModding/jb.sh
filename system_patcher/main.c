@@ -6,39 +6,50 @@
 
 int main(int argc, char* argv[])
 {
-    for (int i=1; i < argc; i++)
-    {
-        printf("Patching '%s'...\n", argv[i]);
+    char* filepaths[] = {
+        "/app/kpp_app_cmds.json",
+        "/usr/share/app/kpp_sys_cmds.json",
+        "/usr/share/webkit-1.0/pillow/debug_cmds.json",
+        NULL
+    };
 
-        FILE* file = fopen(argv[i], "r+");
-        if (file == NULL)
+    for (int i=0; filepaths[i] != NULL; i++)
+    {
+        printf("Patching '%s'...\n", filepaths[i]);
+        if (access(filepaths[i], R_OK) != 0)
         {
-            printf("Could not open '%s'\n", argv[i]);
+            printf("Could not access '%s'\n", filepaths[i]);
             continue;
         }
 
-        fseek(file, 0, SEEK_END);
-		long size = ftell(file);
-		fseek(file, 0, SEEK_SET);
-
+        FILE* file = fopen(filepaths[i], "r+");
+        if (file == NULL)
+        {
+            printf("Could not open '%s'\n", filepaths[i]);
+            continue;
+        }
+        fseek(file, 0L, SEEK_END);
+        int size = ftell(file) + 1;
         char* buffer = malloc(size + 1);
+
         if (buffer == NULL)
         {
-            printf("Could not allocate %ld bytes for '%s'\n", size+1, argv[i]);
+            printf("Could not allocate %i bytes for '%s'\n", size+1, filepaths[i]);
             fclose(file);
             continue;
         }
-        buffer[fread(buffer, 1, size, file)] = 0;
+        
+        buffer[size+1] = 0;
+        fseek(file, 0, SEEK_SET);
+        fread(buffer, 1, size, file);
 
         cJSON* json = cJSON_Parse(buffer);
         if (json == NULL)
         {
             printf("Could not parse JSON for file contents:\n%s\n", buffer);
-            free(buffer);
             fclose(file);
             continue;
         }
-        free(buffer);
 
         if (cJSON_HasObjectItem(json, ";kpm"))
             cJSON_DeleteItemFromObject(json, ";kpm");
@@ -50,25 +61,16 @@ int main(int argc, char* argv[])
             cJSON_DeleteItemFromObject(json, ";kmclog");
 
         cJSON_AddItemToObject(json, ";kpm", cJSON_CreateString("/var/local/kmc/sbin/kpm.sh"));
-        cJSON_AddItemToObject(json, ";log", cJSON_CreateString("/var/local/kmc/sbin/logThis.sh"));
+        cJSON_AddItemToObject(json, ";log", cJSON_CreateString("/usr/bin/logThis.sh"));
         cJSON_AddItemToObject(json, ";kmclog", cJSON_CreateString("/var/local/kmc/sbin/kmclog.sh"));
         
         char* patched_json = cJSON_Print(json);
-        cJSON_Delete(json);
-        if (patched_json == NULL)
-        {
-            printf("Could not serialise JSON for '%s'\n", argv[i]);
-            fclose(file);
-            continue;
-        }
-
         fseek(file, 0, SEEK_SET);
         fwrite(patched_json, 1, strlen(patched_json), file);
-        fflush(file);
         ftruncate(fileno(file), strlen(patched_json));
 
-        free(patched_json);
         fclose(file);
+        cJSON_Delete(json);
     }
     return 0;
 }
