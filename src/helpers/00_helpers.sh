@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="v1.3.7"
+JB_SH_VERSION="v2.2.0"
 
 if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
     JB_HEADER=$(cat /var/local/jailbreak.txt)
@@ -113,4 +113,40 @@ make_immutable() {
     elif [ -f "${my_path}" ] ; then
         ${CHATTR} +i "${my_path}"
     fi
+}
+
+destroy_otas() {
+    stop ota-update
+    stop otaupd
+    stop otav3
+
+    # Kill them asap
+    killall -s SIGKILL otaupd
+    killall -s SIGKILL otav3
+    killall -9 otaupd
+    killall -9 otav3
+
+    stop ota-update
+    stop otaupd
+    stop otav3
+
+    # Thanks scam.net for new paths
+    rm -rf /mnt/us/*.tmp.partial
+    rm -rf /mnt/us/*.bin
+    rm -rf /mnt/us/*.bin.tmp
+    rm -rf /mnt/base-us/*.tmp.partial
+    rm -rf /mnt/base-us/*.bin
+    rm -rf /mnt/base-us/*.bin.tmp
+    rm -rf /mnt/userstore/*.tmp.partial
+    rm -rf /mnt/userstore/*.bin
+    rm -rf /mnt/userstore/*.bin.tmp
+
+    # Kill them again just in case
+    killall -s SIGKILL otaupd
+    killall -s SIGKILL otav3
+    killall -9 otaupd
+    killall -9 otav3
+    stop ota-update
+    stop otaupd
+    stop otav3
 }
