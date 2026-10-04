@@ -1,0 +1,36 @@
+#!/bin/sh
+
+if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
+    printf "You are jailbroken!\n" > /mnt/us/documents/JAILBROKEN.txt
+    printf "(jb.sh $JB_SH_VERSION)\n" >> /mnt/us/documents/JAILBROKEN.txt
+    printf "https://kindlemodding.org\n" >> /mnt/us/documents/JAILBROKEN.txt
+    printf "https://hackerdude.tech\n" >> /mnt/us/documents/JAILBROKEN.txt
+    printf "\n" >> /mnt/us/documents/JAILBROKEN.txt
+    printf "$JB_HEADER" >> /mnt/us/documents/JAILBROKEN.txt
+    printf "$JB_HEADER" > /var/local/jailbreak.txt
+
+    destroy_otas
+
+    log "Restarting GUI..." # Necessary for sh_integration
+    sleep 2 # So they can read what's about to happen
+    lipc-set-prop com.lab126.appmgrd start app://com.lab126.booklet.home
+    lipc-set-prop com.lab126.appmgrd start app://com.lab126.KPPMainApp?view=KPP_HOME
+    if [ -f "/etc/upstart/kppmainapp.conf" ] ; then
+        log "Restart strategy 1"
+        restart lab126_gui &
+        sleep 3 # Wait for it to stop
+    elif [ -f "/etc/upstart/acxe.conf" ] ; then
+        log "Restart strategy 2"
+        restart acxe & # On older devices restart the entire gui
+        sleep 3 # Wait for it to stop
+    else
+        log "Restart strategy 3"
+        telinit 5 &
+        sleep 3 # Wait for it to stop
+    fi
+    /var/local/kmc/bin/fbink -y 3 -m -S 7 "Restarting GUI"
+    /var/local/kmc/bin/fbink -y 4 -m -S 7 "Please Wait..."
+    /var/local/kmc/bin/fbink -y 16 -p -S 3 "(Kindles are slow lol)  "
+    /var/local/kmc/bin/fbink -y -6 -m -S 4 "(Error dialog is fine)"
+    /var/local/kmc/bin/fbink -y -5 -m -S 4 "(Just press close and keep waiting!)"
+fi
