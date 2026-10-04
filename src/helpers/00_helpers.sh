@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="v2.1.1"
+JB_SH_VERSION="v2.0.0"
 
 if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
     JB_HEADER=$(cat /var/local/jailbreak.txt)
@@ -121,27 +121,6 @@ make_immutable() {
 # Returns 0 (true) if immutable bit is set, 1 (false) if not (or if file doesn't exist)
 check_immutable() {
     lsattr.e2fsprogs "$1" | cut -d' ' -f1 | grep -q 'i'
-}
-
-destroy_otas() {
-    stop ota-update
-    stop otaupd
-    stop otav3
-
-    # Kill them asap
-    killall otaupd -s SIGKILL s
-    killall otav3 -s SIGKILL s
-
-    # Thanks scam.net for new paths
-    rm -rf /mnt/us/*.tmp.partial
-    rm -rf /mnt/us/*.bin
-    rm -rf /mnt/us/*.bin.tmp
-    rm -rf /mnt/base-us/*.tmp.partial
-    rm -rf /mnt/base-us/*.bin
-    rm -rf /mnt/base-us/*.bin.tmp
-    rm -rf /mnt/userstore/*.tmp.partial
-    rm -rf /mnt/userstore/*.bin
-    rm -rf /mnt/userstore/*.bin.tmp
 }
 
 # Setup Bind Mount - sets up a bind mount for a file/directory (likely on rootfs)
