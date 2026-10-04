@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="v2.2.0"
+JB_SH_VERSION="v2.2.1"
 
 if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
     JB_HEADER=$(cat /var/local/jailbreak.txt)
