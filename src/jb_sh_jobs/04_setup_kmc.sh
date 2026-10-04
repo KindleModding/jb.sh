@@ -3,12 +3,9 @@ log "Setting KMC permissions"
 chmod -R a+rx /var/local/kmc/sbin/*
 chmod -R a+rx /var/local/kmc/kindlepw2/*
 chmod -R a+rx /var/local/kmc/kindlehf/*
-chmod 0664 /var/local/kmc/system_patches/emergency.conf
-chmod 0664 /var/local/kmc/system_patches/run_patch.conf
+chmod 0664 /var/local/kmc/system_patches/kmc.conf
 chmod a+rx /var/local/kmc/system_patches/patch_system.sh
 chmod a+rx /var/local/kmc/system_patches/run_patch.sh
-chmod a+rx /var/local/kmc/rootless_menu.sh
-chmod 444 /var/local/kmc/block_ota
 
 log "Setting KMC gandalf permissions"
 for gandalf_platform in kindlepw2 kindlehf; do
@@ -45,11 +42,6 @@ rm /mnt/us/documents/*.run_hotfix
 log "Setting up hotfix and emergency runners"
 log "$(cat /var/local/kmc/sql/appreg_register_hotfix.sql | sqlite3 /var/local/appreg.db)"
 log "$(cat /var/local/kmc/sql/appreg_register_emergency.sql | sqlite3 /var/local/appreg.db)"
-
-if [ $ROOTLESS -eq 1 ]; then
-    log "Setting up rootless persistence patch"
-    log "$(cat /var/local/kmc/sql/appreg_register_rootless_persist.sql | sqlite3 /var/local/appreg.db)"
-fi
 
 if [ ! -d "/usr/lib/ccat" ]; then
     log "Setting up sh_integration"
