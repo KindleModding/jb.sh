@@ -2,13 +2,7 @@
 
 log "Stopping OTA"
 
-stop ota-update
-stop otaupd
-stop otav3
-
-# Kill them asap
-killall otaupd -s SIGKILL s
-killall otav3 -s SIGKILL s
+destroy_otas
 
 log "Renaming OTA"
 
@@ -24,10 +18,4 @@ if [ -f "/usr/bin/otav3" ] ; then
     mv /usr/bin/otav3 /usr/bin/otav3.bck
 fi
 
-stop ota-update
-stop otaupd
-stop otav3
-
-# Kill them asap
-killall -s SIGKILL otaupd
-killall -s SIGKILL otav3
+destroy_otas
