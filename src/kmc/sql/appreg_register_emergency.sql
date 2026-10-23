@@ -17,7 +17,7 @@ INSERT INTO properties (handlerId, name, value) VALUES ('org.kindlemodding.emerg
 INSERT INTO properties (handlerId, name, value) VALUES ('org.kindlemodding.emergency_launcher', 'maxPauseTime', '600');
 INSERT INTO properties (handlerId, name, value) VALUES ('org.kindlemodding.emergency_launcher', 'maxUnloadTime', '600');
 INSERT INTO properties (handlerId, name, value) VALUES ('org.kindlemodding.emergency_launcher', 'maxLoadTime', '600');
-INSERT INTO properties (handlerId, name, value) VALUES ('org.kindlemodding.emergency_launcher', 'command', '/bin/sh /mnt/us/emergency.sh');
+INSERT INTO properties (handlerId, name, value) VALUES ('org.kindlemodding.emergency_launcher', 'command', '/bin/sh /var/local/kmc/sbin/run_emergency.sh');
 
 INSERT INTO associations (interface, handlerId, contentId, defaultAssoc) VALUES ('application', 'org.kindlemodding.emergency_launcher', 'MT:kindlemodding/run_emergency', 'true');
 
