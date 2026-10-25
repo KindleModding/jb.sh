@@ -1,5 +1,12 @@
 #!/bin/sh
 
+if [[ ! -d "/tmp/kmc/kindlehf" ]] || [[ ! -d "/tmp/kmc/kindlepw2" ]]; then
+    log "ERROR! ERROR! ERROR!"
+    log "PLEASE REPORT TO HACKERDUDE!!!"
+    log "COULD NOT INSTALL JB.SH - /tmp/kmc MISSING!!!"
+    exit 1
+fi
+
 ###
 # Fix permissions for KMC (MKK doesn't need this)
 ###
@@ -17,11 +24,12 @@ fi
 
 # Make sure we have enough space in /var/local to unpack our KMC and MKK tars
 if [ "$(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)" -lt "$(($(du -ks /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))" ] ; then
+    log "ERROR! ERROR! ERROR!"
     log "not enough space left in varlocal"
     log "Needed: $(($(du -ks /tmp/kmc | cut -f1) - $STORAGE_FREEABLE))"
     log "Available: $(df -k /var/local | tail -n 1 | tr -s ' ' | cut -d' ' -f4)"
     rm -rf /tmp/kmc
-    return 1
+    exit 1
 fi
 
 log "Removing mkk"

@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # Yes - We pack files directly into the script
-kmc_tar=
 
 echo "#!/bin/sh" > build/jb.sh
 echo "rm -rf /tmp/kmc" >> build/jb.sh

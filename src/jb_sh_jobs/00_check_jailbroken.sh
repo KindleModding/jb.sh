@@ -5,3 +5,5 @@ if [ $RUN_MODE -eq 0 ] && [ $JAILBROKEN -eq 1 ]; then
     fi
     exit
 fi
+
+# BURN, BABY! BURN!
