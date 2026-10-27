@@ -35,12 +35,13 @@ fi
 log "Removing mkk"
 make_mutable /var/local/mkk
 rm -rf /var/local/mkk
-mkdir /var/local/mkk
+mkdir -p /var/local/mkk
 
 log "Removing kmc"
 make_mutable /var/local/kmc
 rm -rf /var/local/kmc
-mkdir /var/local/kmc
+mkdir -p /var/local/kmc
+chmod g-s /var/local/kmc /var/local/mkk 2>/dev/null || true
 
 log "Unpacking KMC"
 make_mutable "/var/local/kmc"

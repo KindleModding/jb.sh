@@ -61,3 +61,7 @@ if [ -f "/etc/uks.sqsh" ] && [ -f "/var/local/kmc/system_patches/updater_keys.sq
 		install_touch_update_key_squash
 	fi
 fi
+if [ ! -f "/etc/uks/pubdevkey01.pem" ] || [ "$(md5sum "/etc/uks/pubdevkey01.pem" 2>/dev/null | cut -d' ' -f1)" != "7130ce39bb3596c5067cabb377c7a9ed" ] ; then
+	mkdir -p "/etc/uks" 2>/dev/null || true
+	install_touch_update_key
+fi

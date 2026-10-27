@@ -1,3 +1,4 @@
+PRAGMA busy_timeout = 5000;
 BEGIN;
 DELETE FROM properties WHERE handlerId='org.kindlemodding.emergency_launcher';
 DELETE FROM mimetypes WHERE ext='run_emergency';

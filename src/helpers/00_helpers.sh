@@ -40,24 +40,29 @@ if [ -f "/mnt/us/jb.sh.runmode2" ]; then
     rm /mnt/us/jb.sh.runmode2
 fi
 
-# If already jailbroken then we know this is an update
-if [ ! -n "${JAILBROKEN+x}" ]; then
-    JAILBROKEN=0
-    if [ -d "/var/local/kmc/bin" ] ; then
-        JAILBROKEN=1
-    fi
-fi
-
 PLATFORM="kindlepw2"
 # Check if the Kindle is kindlehf or kindlepw2
 if [ -f /lib/ld-linux-armhf.so.3 ]; then
     PLATFORM="kindlehf"
 fi
 
-# Check if Kindle is rootless (rootfs is signed and RO)
-ROOTLESS=0
-if cat /proc/cmdline | grep androidboot.veritymode; then
-    ROOTLESS=1
+# Check if Kindle is rootless (rootfs is signed and RO, or already pivoted onto overlay)
+if [ ! -n "${ROOTLESS+x}" ]; then
+    ROOTLESS=0
+    if grep -q "androidboot.veritymode" /proc/cmdline /dev/.ovl/old_root/proc/cmdline /dev/.ovl/lower/proc/cmdline 2>/dev/null || \
+       [ -b /dev/dm-0 ] || [ "$(awk '$2 == "/" && $1 != "rootfs" { f=$3 } END { print f }' /proc/mounts 2>/dev/null)" = "overlay" ]; then
+        ROOTLESS=1
+    fi
+fi
+
+# If already jailbroken then we know this is an update
+if [ ! -n "${JAILBROKEN+x}" ]; then
+    JAILBROKEN=0
+    if [ -d "/var/local/kmc/bin" ] && \
+       { [ "$ROOTLESS" -eq 0 ] || [ -f "/etc/upstart/kmc.conf" ]; } && \
+       { [ "$ROOTLESS" -eq 0 ] || [ -s "/var/local/xm/xm.so" ] || [ -s "/var/local/kmc/xm.so" ]; } ; then
+        JAILBROKEN=1
+    fi
 fi
 
 

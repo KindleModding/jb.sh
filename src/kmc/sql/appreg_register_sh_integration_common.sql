@@ -1,3 +1,4 @@
+PRAGMA busy_timeout = 5000;
 BEGIN;
 DELETE FROM mimetypes WHERE ext='sh';
 DELETE FROM extenstions WHERE ext='sh';
