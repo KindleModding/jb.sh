@@ -3,7 +3,7 @@
 ###
 # Defines
 ###
-JB_SH_VERSION="v2.5.0"
+JB_SH_VERSION="v2.6.0"
 
 if [ ! -n "${JB_HEADER+x}" ] && [ -f "/var/local/jailbreak.txt" ]; then
     JB_HEADER=$(cat /var/local/jailbreak.txt)
@@ -43,7 +43,7 @@ fi
 # If already jailbroken then we know this is an update
 if [ ! -n "${JAILBROKEN+x}" ]; then
     JAILBROKEN=0
-    if [ -d "/var/local/kmc/bin" ] ; then
+    if [ -f "/var/local/kmc/version" ] && [ "$(cat /var/local/kmc/version)" = "$JB_SH_VERSION" ]; then
         JAILBROKEN=1
     fi
 fi

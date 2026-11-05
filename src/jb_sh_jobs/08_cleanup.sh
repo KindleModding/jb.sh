@@ -2,6 +2,10 @@
 /bin/mount -o exec /mnt/us # Remount as exec
 log "Done"
 
+make_mutable /var/local/kmc
+echo "$JB_SH_VERSION" > /var/local/kmc/version
+make_immutable /var/local/kmc
+
 if [ $RUN_MODE -eq 1 ] || [ $JAILBROKEN -eq 0 ]; then
     printf "You are jailbroken!\n" > /mnt/us/documents/JAILBROKEN.txt
     printf "(jb.sh $JB_SH_VERSION)\n" >> /mnt/us/documents/JAILBROKEN.txt
